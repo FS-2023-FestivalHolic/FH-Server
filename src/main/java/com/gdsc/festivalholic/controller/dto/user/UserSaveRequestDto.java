@@ -1,4 +1,4 @@
-package com.gdsc.festivalholic.contorller.dto.user;
+package com.gdsc.festivalholic.controller.dto.user;
 
 import com.gdsc.festivalholic.domain.user.User;
 import lombok.*;

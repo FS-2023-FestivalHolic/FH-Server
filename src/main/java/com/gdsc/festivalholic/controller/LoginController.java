@@ -1,4 +1,4 @@
-package com.gdsc.festivalholic.contorller;
+package com.gdsc.festivalholic.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

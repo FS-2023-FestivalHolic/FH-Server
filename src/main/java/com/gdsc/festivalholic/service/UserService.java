@@ -1,7 +1,6 @@
 package com.gdsc.festivalholic.service;
 
-import com.gdsc.festivalholic.contorller.dto.user.UserResponseDto;
-import com.gdsc.festivalholic.contorller.dto.user.UserSaveRequestDto;
+import com.gdsc.festivalholic.controller.dto.user.UserSaveRequestDto;
 import com.gdsc.festivalholic.domain.user.User;
 import com.gdsc.festivalholic.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;

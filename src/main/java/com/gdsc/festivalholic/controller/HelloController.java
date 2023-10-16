@@ -1,4 +1,4 @@
-package com.gdsc.festivalholic.contorller;
+package com.gdsc.festivalholic.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

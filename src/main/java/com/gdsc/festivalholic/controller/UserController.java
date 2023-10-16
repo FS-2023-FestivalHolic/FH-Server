@@ -1,11 +1,10 @@
-package com.gdsc.festivalholic.contorller;
+package com.gdsc.festivalholic.controller;
 
 import com.gdsc.festivalholic.config.exception.ApiException;
 import com.gdsc.festivalholic.config.exception.ErrorCode;
 import com.gdsc.festivalholic.config.response.ResponseDto;
 import com.gdsc.festivalholic.config.response.ResponseUtil;
-import com.gdsc.festivalholic.contorller.dto.user.UserResponseDto;
-import com.gdsc.festivalholic.contorller.dto.user.UserSaveRequestDto;
+import com.gdsc.festivalholic.controller.dto.user.UserSaveRequestDto;
 import com.gdsc.festivalholic.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
