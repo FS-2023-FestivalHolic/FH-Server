@@ -14,6 +14,7 @@ public enum ErrorCode {
     USER_EMPTY_NICKNAME(400, "닉네임 입력하세요.", 421);
 
 
+
     private final int status;
     private final String message;
     private final int code;
