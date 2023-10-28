@@ -1,4 +1,4 @@
-package com.gdsc.festivalholic.domain.user;
+package com.gdsc.festivalholic.domain.users;
 
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor
-public class User {
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class User {
     private String nickName;
 
     @Builder
-    public User(String loginId, String password, String email, String name, String nickName) {
+    public Users(String loginId, String password, String email, String name, String nickName) {
         this.loginId = loginId;
         this.password = password;
         this.email = email;

@@ -1,12 +1,12 @@
 package com.gdsc.festivalholic.controller.dto.user;
 
-import com.gdsc.festivalholic.domain.user.User;
+import com.gdsc.festivalholic.domain.users.Users;
 import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserSaveRequestDto {
+public class UsersSaveRequestDto {
 
     private String loginId;
     private String password;
@@ -15,7 +15,7 @@ public class UserSaveRequestDto {
     private String nickName;
 
     @Builder
-    public UserSaveRequestDto(String loginId, String password, String email, String name, String nickName) {
+    public UsersSaveRequestDto(String loginId, String password, String email, String name, String nickName) {
         this.loginId = loginId;
         this.password = password;
         this.email = email;
@@ -23,8 +23,8 @@ public class UserSaveRequestDto {
         this.nickName = nickName;
     }
 
-    public User toEntity() {
-        return User.builder()
+    public Users toEntity() {
+        return Users.builder()
                 .loginId(loginId)
                 .password(password)
                 .email(email)
