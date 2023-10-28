@@ -4,7 +4,8 @@ package com.gdsc.festivalholic.controller;
 import com.gdsc.festivalholic.config.response.ResponseDto;
 import com.gdsc.festivalholic.config.response.ResponseUtil;
 import com.gdsc.festivalholic.controller.dto.beer.BeerSaveRequestDto;
-import com.gdsc.festivalholic.service.BeerService;
+import com.gdsc.festivalholic.controller.dto.hashTag.HashTagSaveRequestDto;
+import com.gdsc.festivalholic.service.HashTagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,22 +14,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/beers")
-public class BeerController {
+@RequestMapping("/api/hashTags")
+public class HashTagController {
 
-    private final BeerService beerService;
+    private final HashTagService hashTagService;
 
-    //수제 맥주 생성 API
     @PostMapping("/create")
-    public ResponseDto<Long> create(@RequestBody BeerSaveRequestDto beerSaveRequestDto){
+    public ResponseDto<Long> create(@RequestBody HashTagSaveRequestDto hashTagSaveRequestDto){
         //예외처리 넣기
 
 
 
-        Long beerId = beerService.create(beerSaveRequestDto);
+        Long hashTagId = hashTagService.create(hashTagSaveRequestDto);
 
-        return ResponseUtil.SUCCESS("맥주 정보 생성을 완료하였습니다.", beerId);
+        return ResponseUtil.SUCCESS("해쉬태그 생성 완료하였습니다.", hashTagId);
     }
-
-
 }
