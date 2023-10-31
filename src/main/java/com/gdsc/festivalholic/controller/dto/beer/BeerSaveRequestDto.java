@@ -9,18 +9,17 @@ import lombok.Setter;
 import java.util.List;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class BeerSaveRequestDto {
 
-    private String beer_name;
+    private String beerName;
     private String introduction;
     private String content;
     private List<Long> hashTagIds;
 
     @Builder
-    public BeerSaveRequestDto(String beer_name, String introduction, String content, List<Long> hashTagIds) {
-        this.beer_name = beer_name;
+    public BeerSaveRequestDto(String beerName, String introduction, String content, List<Long> hashTagIds) {
+        this.beerName = beerName;
         this.introduction = introduction;
         this.content = content;
         this.hashTagIds = hashTagIds;
@@ -28,7 +27,7 @@ public class BeerSaveRequestDto {
 
     public Beer toEntity() {
         return Beer.builder()
-                .beerName(beer_name)
+                .beerName(beerName)
                 .introduction(introduction)
                 .content(content)
                 .build();
