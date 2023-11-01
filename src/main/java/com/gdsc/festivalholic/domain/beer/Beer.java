@@ -42,7 +42,6 @@ public class Beer {
     @OneToMany(mappedBy = "beer")
     private List<Likes> likeList = new ArrayList<>();
 
-
     @Builder
     public Beer(String beerName, String introduction, String content) {
         this.beerName = beerName;

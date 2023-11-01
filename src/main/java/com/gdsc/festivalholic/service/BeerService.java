@@ -2,6 +2,7 @@ package com.gdsc.festivalholic.service;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.gdsc.festivalholic.controller.dto.beer.BeerListResponseDto;
 import com.gdsc.festivalholic.controller.dto.beer.BeerResponseDto;
 import com.gdsc.festivalholic.controller.dto.beer.BeerSaveRequestDto;
 import com.gdsc.festivalholic.controller.dto.beerImage.BeerImageUploadDto;
@@ -67,6 +68,27 @@ public class BeerService {
         return buildBeerResponseDto(beer, url, hashTagList);
     }
 
+    public List<BeerListResponseDto> findAllBeer(){
+        List<Beer> all = beerRepository.findAll();
+        List<BeerListResponseDto> beerListResponseDtoList = new ArrayList<>();
+        for (int i = 0; i < all.size(); i++) {
+            Beer beer = all.get(i);
+
+            BeerListResponseDto beerListResponseDto = BeerListResponseDto.builder()
+                    .beerName(beer.getBeerName())
+                    .hashTagList(getHashTagNamesFromBeer(beer))
+                    .likeNum(0)
+                    .imageUrl(getImageUrl(beer.getId()).toString())
+                    .build();
+
+            beerListResponseDtoList.add(beerListResponseDto);
+
+        }
+
+        return beerListResponseDtoList;
+
+    }
+
     private Beer findBeerEntityById(Long beerId) {
         return beerRepository.findById(beerId).orElseThrow(() -> new IllegalArgumentException("해당 아이디의 맥주정보를 찾을 수 없습니다."));
     }
@@ -86,7 +108,7 @@ public class BeerService {
                 .introduction(beer.getIntroduction())
                 .content(beer.getContent())
                 .hashTagNames(hashTagList)
-                .imageFile(url.toString())
+                .imageUrl(url.toString())
                 .build();
     }
 
