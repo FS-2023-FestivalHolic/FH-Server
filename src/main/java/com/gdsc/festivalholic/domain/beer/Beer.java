@@ -35,6 +35,7 @@ public class Beer {
     @OrderBy("id asc")
     private List<BeerImage> beerImageList;
 
+    
 
     @Builder
     public Beer(String beerName, String introduction, String content) {
