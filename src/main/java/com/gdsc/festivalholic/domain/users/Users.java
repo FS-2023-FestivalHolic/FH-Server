@@ -1,6 +1,9 @@
 package com.gdsc.festivalholic.domain.users;
 
+import com.gdsc.festivalholic.domain.like.Likes;
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +25,9 @@ public class Users {
     private String email;
     private String name;
     private String nickName;
+
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    private List<Likes> likeList = new ArrayList<>();
 
     @Builder
     public Users(String loginId, String password, String email, String name, String nickName) {

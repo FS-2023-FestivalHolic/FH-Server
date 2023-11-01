@@ -129,4 +129,12 @@ public class BeerService {
         }
     }
 
+    public int plusLikesCnt(Long beerId) {
+        return beerRepository.plusLikesCnt(beerId);
+    }
+
+    public int minusLikesCnt(Long beerId) {
+        return beerRepository.minusLikesCnt(beerId);
+    }
+
 }

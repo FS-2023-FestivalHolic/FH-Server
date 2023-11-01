@@ -1,5 +1,6 @@
 package com.gdsc.festivalholic.service;
 
+import com.gdsc.festivalholic.controller.dto.user.UsersResponseDto;
 import com.gdsc.festivalholic.controller.dto.user.UsersSaveRequestDto;
 import com.gdsc.festivalholic.domain.users.UsersRepository;
 import com.gdsc.festivalholic.domain.users.Users;
@@ -22,8 +23,10 @@ public class UsersService {
         return usersId;
     }
 
-//    @Transactional(readOnly = true)
-//    public UserResponseDto findById(Long userId) {
-//
-//    }
+    @Transactional(readOnly = true)
+    public UsersResponseDto findById(Long userId) {
+//        Users users = usersRepository.findById(userId);
+        return new UsersResponseDto();
+    }
+
 }
