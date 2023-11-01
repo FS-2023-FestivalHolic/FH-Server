@@ -18,16 +18,16 @@ public class BeerResponseDto {
     private String introduction;
     private String content;
     private List<String> hashTagNames;
-    private String imageFile;
+    private String imageUrl;
 
     @Builder
-    public BeerResponseDto(Long beerId, String beerName, String introduction, String content, List<String> hashTagNames, String imageFile){
+    public BeerResponseDto(Long beerId, String beerName, String introduction, String content, List<String> hashTagNames, String imageUrl){
         this.beerId = beerId;
         this.beerName = beerName;
         this.introduction = introduction;
         this.content = content;
         this.hashTagNames = hashTagNames;
-        this.imageFile = imageFile;
+        this.imageUrl = imageUrl;
 
     }
 
