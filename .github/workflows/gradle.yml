@@ -35,6 +35,11 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         
+    - name: Build with Gradle
+      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+      with:
+        arguments: clean build -x test
+
     - uses: actions/checkout@v3
     - run: touch ./src/main/resources/application.yml
     - run: echo "${{env.YML_FILE}}" > ./src/main/resources/application.yml
@@ -42,11 +47,6 @@ jobs:
       with:
         name: application.yml
         path: ./src/main/resources/application.yml
-        
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
-      with:
-        arguments: clean build -x test
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
