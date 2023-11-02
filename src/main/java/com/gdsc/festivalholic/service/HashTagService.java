@@ -21,7 +21,7 @@ public class HashTagService {
 
     private final HashTagRepository hashTagRepository;
 
-    public Long create(HashTagSaveRequestDto hashTagSaveRequestDto){
+    public Long create(HashTagSaveRequestDto hashTagSaveRequestDto) {
 
         HashTag hashTag = hashTagSaveRequestDto.toEntity();
 
@@ -30,9 +30,7 @@ public class HashTagService {
         return hashTagId;
     }
 
-<<<<<<< HEAD
-=======
-    public List<HashTagResponseDto> findAllHashTag(){
+    public List<HashTagResponseDto> findAllHashTag() {
         List<HashTag> all = hashTagRepository.findAll();
         List<HashTagResponseDto> hashTagResponseDtoList = new ArrayList();
         for (int i = 0; i < all.size(); i++) {
@@ -50,7 +48,5 @@ public class HashTagService {
         return hashTagResponseDtoList;
 
     }
-
->>>>>>> 0e4c729439b3971e2e92e6ad65d6f0a3c2226a00
-
 }
+

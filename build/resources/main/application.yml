@@ -2,7 +2,6 @@ server:
   port: 8083
 
 spring:
-
   h2:
     console:
       enabled: true
@@ -14,7 +13,6 @@ spring:
     password: festivalholic
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -22,6 +20,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
         format_sql: true
+
     logging.level:
       org.hibernate.SQL: debug
 
@@ -38,6 +37,8 @@ springdoc:
     format_sql: true
     logging.level:
       org.hibernate.SQL: debug
+      dialect: org.hibernate.dialect.MySQL5Dialect
+      format_sql: true
 
 cloud:
   aws:
@@ -49,4 +50,3 @@ cloud:
     credentials:
       accessKey:
       secretKey:
-
