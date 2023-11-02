@@ -3,14 +3,13 @@ package com.gdsc.festivalholic.controller;
 
 import com.gdsc.festivalholic.config.response.ResponseDto;
 import com.gdsc.festivalholic.config.response.ResponseUtil;
-import com.gdsc.festivalholic.controller.dto.beer.BeerSaveRequestDto;
+import com.gdsc.festivalholic.controller.dto.hashTag.HashTagResponseDto;
 import com.gdsc.festivalholic.controller.dto.hashTag.HashTagSaveRequestDto;
 import com.gdsc.festivalholic.service.HashTagService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -28,5 +27,13 @@ public class HashTagController {
         Long hashTagId = hashTagService.create(hashTagSaveRequestDto);
 
         return ResponseUtil.SUCCESS("해쉬태그 생성 완료하였습니다.", hashTagId);
+    }
+
+    @GetMapping("/")
+    public ResponseDto<List<HashTagResponseDto>> findAllHashTag(){
+
+        List<HashTagResponseDto> allHashTag = hashTagService.findAllHashTag();
+
+        return ResponseUtil.SUCCESS("모든 해쉬태그 생성을 완료하였습니다.", allHashTag);
     }
 }
