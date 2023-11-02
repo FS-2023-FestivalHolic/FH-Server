@@ -2,7 +2,6 @@ package com.gdsc.festivalholic.service;
 
 import com.gdsc.festivalholic.controller.dto.hashTag.HashTagResponseDto;
 import com.gdsc.festivalholic.controller.dto.hashTag.HashTagSaveRequestDto;
-import com.gdsc.festivalholic.domain.beer.Beer;
 import com.gdsc.festivalholic.domain.hashTag.HashTag;
 import com.gdsc.festivalholic.domain.hashTag.HashTagRepository;
 import lombok.RequiredArgsConstructor;
