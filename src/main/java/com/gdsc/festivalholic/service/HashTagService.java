@@ -1,7 +1,5 @@
 package com.gdsc.festivalholic.service;
 
-import com.gdsc.festivalholic.config.response.ResponseDto;
-import com.gdsc.festivalholic.controller.dto.beer.BeerListResponseDto;
 import com.gdsc.festivalholic.controller.dto.hashTag.HashTagResponseDto;
 import com.gdsc.festivalholic.controller.dto.hashTag.HashTagSaveRequestDto;
 import com.gdsc.festivalholic.domain.beer.Beer;
@@ -32,5 +30,27 @@ public class HashTagService {
         return hashTagId;
     }
 
+<<<<<<< HEAD
+=======
+    public List<HashTagResponseDto> findAllHashTag(){
+        List<HashTag> all = hashTagRepository.findAll();
+        List<HashTagResponseDto> hashTagResponseDtoList = new ArrayList();
+        for (int i = 0; i < all.size(); i++) {
+            HashTag hashTag = all.get(i);
+
+            HashTagResponseDto hashTagResponseDto = HashTagResponseDto.builder()
+                    .hashTagName(hashTag.getTagName())
+                    .id(hashTag.getId())
+                    .build();
+
+            hashTagResponseDtoList.add(hashTagResponseDto);
+
+        }
+
+        return hashTagResponseDtoList;
+
+    }
+
+>>>>>>> 0e4c729439b3971e2e92e6ad65d6f0a3c2226a00
 
 }
