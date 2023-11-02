@@ -1,9 +1,14 @@
 package com.gdsc.festivalholic.service;
 
+import com.gdsc.festivalholic.controller.dto.beer.BeerLikesResponseDto;
 import com.gdsc.festivalholic.controller.dto.user.UsersResponseDto;
 import com.gdsc.festivalholic.controller.dto.user.UsersSaveRequestDto;
-import com.gdsc.festivalholic.domain.users.UsersRepository;
+import com.gdsc.festivalholic.domain.beer.Beer;
+import com.gdsc.festivalholic.domain.likes.Likes;
+import com.gdsc.festivalholic.domain.likes.LikesRepository;
 import com.gdsc.festivalholic.domain.users.Users;
+import com.gdsc.festivalholic.domain.users.UsersRepository;
+import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,6 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class UsersService {
 
     private final UsersRepository usersRepository;
+    private final LikesRepository likesRepository;
+    private final BeerService beerService;
 
     public Long save(UsersSaveRequestDto usersSaveRequestDto) {
         Users users = usersSaveRequestDto.toEntity();
@@ -25,8 +32,23 @@ public class UsersService {
 
     @Transactional(readOnly = true)
     public UsersResponseDto findById(Long userId) {
-//        Users users = usersRepository.findById(userId);
-        return new UsersResponseDto();
+        Users users = usersRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다. id=" + userId));
+
+        ArrayList<Likes> likesList = likesRepository.findByUsers(users);
+        ArrayList<BeerLikesResponseDto> beerList = new ArrayList<>();
+
+        for (int i=0; i<likesList.size(); i++) {
+            Beer beer = likesList.get(i).getBeer();
+            beerList.add(new BeerLikesResponseDto(beer.getBeerName(), beerService.getImageUrl(beer.getId()) , beer.getLikesCnt()));
+        }
+
+        UsersResponseDto usersResponseDto = UsersResponseDto.builder()
+                .userName(users.getName())
+                .beerList(beerList)
+                .build();
+
+        return usersResponseDto;
     }
 
 }

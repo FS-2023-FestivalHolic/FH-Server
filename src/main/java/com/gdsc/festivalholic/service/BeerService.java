@@ -107,7 +107,7 @@ public class BeerService {
                 .build();
     }
 
-    private URL getImageUrl(Long beerId) {
+    public URL getImageUrl(Long beerId) {
         return amazonS3Client.getUrl("fh-image-bucket", Long.toString(beerId) + "_image.png");
     }
 

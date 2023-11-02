@@ -19,7 +19,7 @@ public class BeerImage {
     @Column(nullable = false)
     private String url;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "beer_id")
     private Beer beer;
 
