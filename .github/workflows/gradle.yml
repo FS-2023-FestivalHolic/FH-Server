@@ -35,7 +35,8 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+    - run: mkdir -p src/main/resources
     - run: touch ./src/main/resources/application.yml
     - run: echo "${{secrets.YML_FILE}}" > ./src/main/resources/application.yml
     - uses: actions/upload-artifact@v2
