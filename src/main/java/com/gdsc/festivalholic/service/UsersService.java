@@ -1,19 +1,14 @@
 package com.gdsc.festivalholic.service;
 
 import com.gdsc.festivalholic.controller.dto.beer.BeerLikesResponseDto;
-import com.gdsc.festivalholic.controller.dto.beerImage.BeerImageResponseDto;
 import com.gdsc.festivalholic.controller.dto.user.UsersResponseDto;
 import com.gdsc.festivalholic.controller.dto.user.UsersSaveRequestDto;
 import com.gdsc.festivalholic.domain.beer.Beer;
-import com.gdsc.festivalholic.domain.beer.BeerRepository;
-import com.gdsc.festivalholic.domain.beerImage.BeerImage;
-import com.gdsc.festivalholic.domain.beerImage.BeerImageRepository;
 import com.gdsc.festivalholic.domain.likes.Likes;
 import com.gdsc.festivalholic.domain.likes.LikesRepository;
-import com.gdsc.festivalholic.domain.users.UsersRepository;
 import com.gdsc.festivalholic.domain.users.Users;
+import com.gdsc.festivalholic.domain.users.UsersRepository;
 import java.util.ArrayList;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
