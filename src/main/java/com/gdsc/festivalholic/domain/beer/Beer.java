@@ -42,9 +42,6 @@ public class Beer {
     @Column(nullable = false)
     private Integer likesCnt;
 
-    @Column(nullable = false)
-    private String Imageurl;
-
     @OneToMany(mappedBy = "beer")
     private List<Likes> likesList = new ArrayList<>();
 
