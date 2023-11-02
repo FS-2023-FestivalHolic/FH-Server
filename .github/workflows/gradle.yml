@@ -34,14 +34,13 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-      
-    - name: Set YML
+
     - uses: actions/checkout@v3
-    - run: |
-        mkdir -p src/main/resources
-        touch ./src/main/resources/application.yml
-        echo "${{ secrets.YML_FILE }}" | base64 --decode > src/main/resources/application.yml
-        find src
+    - name: Set YML
+      run: |
+          mkdir -p src/main/resources
+          touch ./src/main/resources/application.yml
+          echo "${{ secrets.YML_FILE }}" | base64 --decode > src/main/resources/application.yml
         
     - name: Build with Gradle
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
