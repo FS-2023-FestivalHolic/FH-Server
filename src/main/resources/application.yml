@@ -1,8 +1,8 @@
-
 server:
   port: 8083
 
 spring:
+
   h2:
     console:
       enabled: true
@@ -14,18 +14,19 @@ spring:
     password: festivalholic
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
-          format_sql: true
+        format_sql: true
     logging.level:
       org.hibernate.SQL: debug
 
 springdoc:
-#  packages-to-scan: com.colabear754.springdoc_example.controllers
+  #  packages-to-scan: com.colabear754.springdoc_example.controllers
   default-consumes-media-type: application/json;charset=UTF-8
   default-produces-media-type: application/json;charset=UTF-8
   swagger-ui:
@@ -33,11 +34,10 @@ springdoc:
     disable-swagger-default-url: true
     display-request-duration: true
     operations-sorter: alpha
-        dialect: org.hibernate.dialect.MySQL5Dialect
-        format_sql: true
+    dialect: org.hibernate.dialect.MySQL5Dialect
+    format_sql: true
     logging.level:
       org.hibernate.SQL: debug
-
 
 cloud:
   aws:
@@ -49,5 +49,3 @@ cloud:
     credentials:
       accessKey:
       secretKey:
-
-
