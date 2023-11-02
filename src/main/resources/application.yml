@@ -1,4 +1,9 @@
+<<<<<<< HEAD
+server:
+  port: 8083
+=======
 
+>>>>>>> b5b8924326e76ad608845dbad68bff3d8b36eee3
 
 spring:
 
@@ -7,6 +12,13 @@ spring:
       enabled: true
       path: /h2-console
 
+<<<<<<< HEAD
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/fh-test
+    username: sa
+    password:
+=======
 #  datasource:
 #    driver-class-name: org.h2.Driver
 #    url: jdbc:h2:~/fh-test
@@ -18,18 +30,36 @@ spring:
     username: admin
     password: festivalholic
     driver-class-name: com.mysql.cj.jdbc.Driver
+>>>>>>> b5b8924326e76ad608845dbad68bff3d8b36eee3
 
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
+<<<<<<< HEAD
+        dialect:
+          format_sql: true
+    logging.level:
+      org.hibernate.SQL: debug
+
+springdoc:
+#  packages-to-scan: com.colabear754.springdoc_example.controllers
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  swagger-ui:
+    path: /
+    disable-swagger-default-url: true
+    display-request-duration: true
+    operations-sorter: alpha
+=======
         dialect: org.hibernate.dialect.MySQL5Dialect
         format_sql: true
     logging.level:
       org.hibernate.SQL: debug
 server:
   port: 8083
+>>>>>>> b5b8924326e76ad608845dbad68bff3d8b36eee3
 
 cloud:
   aws:
@@ -39,5 +69,10 @@ cloud:
     region.static: ap-northeast-2
 
     credentials:
+<<<<<<< HEAD
+      accessKey:
+      secretKey:
+=======
       accessKey: AKIAWDXS37LJ3RP62XGA
       secretKey: 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
+>>>>>>> b5b8924326e76ad608845dbad68bff3d8b36eee3

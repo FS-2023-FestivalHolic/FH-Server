@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -145,6 +144,14 @@ public class BeerService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public int plusLikesCnt(Long beerId) {
+        return beerRepository.plusLikesCnt(beerId);
+    }
+
+    public int minusLikesCnt(Long beerId) {
+        return beerRepository.minusLikesCnt(beerId);
     }
 
 }

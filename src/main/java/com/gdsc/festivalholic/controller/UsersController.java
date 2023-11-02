@@ -4,11 +4,14 @@ import com.gdsc.festivalholic.config.exception.ApiException;
 import com.gdsc.festivalholic.config.exception.ErrorCode;
 import com.gdsc.festivalholic.config.response.ResponseDto;
 import com.gdsc.festivalholic.config.response.ResponseUtil;
+import com.gdsc.festivalholic.controller.dto.user.UsersResponseDto;
 import com.gdsc.festivalholic.controller.dto.user.UsersSaveRequestDto;
 import com.gdsc.festivalholic.service.UsersService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "유저 API", description = "유저")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/users")
@@ -35,9 +38,9 @@ public class UsersController {
     }
 
     //내 정보 조회
-//    @GetMapping("/{userId}")
-//    public ResponseDto<UserResponseDto> findById(@PathVariable("userId") Long userId) {
-//        return ResponseUtil.SUCCESS("내 정보 조회에 성공하였습니다.", userService.findById(userId));
-//    }
+    @GetMapping("/{userId}")
+    public ResponseDto<UsersResponseDto> findById(@PathVariable("userId") Long userId) {
+        return ResponseUtil.SUCCESS("내 정보 조회에 성공하였습니다.", userService.findById(userId));
+    }
 
 }
