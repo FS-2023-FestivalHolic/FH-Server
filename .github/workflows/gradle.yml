@@ -38,6 +38,7 @@ jobs:
     - name: Set YML
       run: |
         mkdir -p src/main/resources
+        touch ./src/main/resources/application.yml
         echo "${{ secrets.YML_FILE }}" | base64 --decode > src/main/resources/application.yml
         find src
         
