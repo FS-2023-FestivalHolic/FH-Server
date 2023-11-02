@@ -1,4 +1,4 @@
-package com.gdsc.festivalholic.domain.like;
+package com.gdsc.festivalholic.domain.likes;
 
 import com.gdsc.festivalholic.domain.beer.Beer;
 import com.gdsc.festivalholic.domain.users.Users;
@@ -32,12 +32,12 @@ public class Likes {
 
     public void setUsers(Users users) {
         this.users = users;
-        users.getLikeList().add(this);
+        users.getLikesList().add(this);
     }
 
     public void setBeer(Beer beer) {
         this.beer = beer;
-        beer.getLikeList().add(this);
+        beer.getLikesList().add(this);
     }
 
     @Builder

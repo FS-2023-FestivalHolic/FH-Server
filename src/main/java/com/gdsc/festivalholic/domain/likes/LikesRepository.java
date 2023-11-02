@@ -1,4 +1,4 @@
-package com.gdsc.festivalholic.domain.like;
+package com.gdsc.festivalholic.domain.likes;
 
 import com.gdsc.festivalholic.domain.beer.Beer;
 import com.gdsc.festivalholic.domain.users.Users;
@@ -10,7 +10,6 @@ import org.springframework.data.repository.query.Param;
 public interface LikesRepository extends JpaRepository<Likes, Long> {
 
     @Query("select l from Likes l where l.users = :users and l.beer = :beer")
-    Optional<Likes> findByUsersAndBeer(@Param("users") Users users, @Param("beer")Beer beer);
-
+    Optional<Likes> findByUsersAndBeer(@Param("users") Users users, @Param("beer") Beer beer);
 
 }
