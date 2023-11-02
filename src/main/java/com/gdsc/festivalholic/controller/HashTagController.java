@@ -4,10 +4,13 @@ package com.gdsc.festivalholic.controller;
 import com.gdsc.festivalholic.config.response.ResponseDto;
 import com.gdsc.festivalholic.config.response.ResponseUtil;
 import com.gdsc.festivalholic.controller.dto.beer.BeerSaveRequestDto;
+import com.gdsc.festivalholic.controller.dto.hashTag.HashTagResponseDto;
 import com.gdsc.festivalholic.controller.dto.hashTag.HashTagSaveRequestDto;
 import com.gdsc.festivalholic.service.HashTagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -26,5 +29,4 @@ public class HashTagController {
 
         return ResponseUtil.SUCCESS("해쉬태그 생성 완료하였습니다.", hashTagId);
     }
-
 }

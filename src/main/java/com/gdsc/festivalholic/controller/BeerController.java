@@ -53,7 +53,7 @@ public class BeerController {
 
         List<BeerListResponseDto> allBeer = beerService.findAllBeer();
 
-        return ResponseUtil.SUCCESS("맥주 정보 조회를 완료하였습니다.", allBeer);
+        return ResponseUtil.SUCCESS("모든 맥주 정보 조회를 완료하였습니다.", allBeer);
 
     }
 
