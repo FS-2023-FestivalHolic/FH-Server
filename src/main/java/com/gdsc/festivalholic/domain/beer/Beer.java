@@ -2,24 +2,21 @@ package com.gdsc.festivalholic.domain.beer;
 
 import com.gdsc.festivalholic.domain.beerHashTag.BeerHashTag;
 import com.gdsc.festivalholic.domain.beerImage.BeerImage;
-<<<<<<< HEAD
-import com.gdsc.festivalholic.domain.like.Likes;
-=======
-import com.gdsc.festivalholic.domain.hashTag.HashTag;
 import com.gdsc.festivalholic.domain.likes.Likes;
->>>>>>> b5b8924326e76ad608845dbad68bff3d8b36eee3
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-<<<<<<< HEAD
-=======
-import org.hibernate.annotations.ColumnDefault;
-import org.springframework.core.annotation.Order;
->>>>>>> b5b8924326e76ad608845dbad68bff3d8b36eee3
-
-import java.util.ArrayList;
-import java.util.List;
 import org.hibernate.annotations.ColumnDefault;
 
 
@@ -50,11 +47,7 @@ public class Beer {
     private List<BeerImage> beerImageList;
 
     @OneToMany(mappedBy = "beer")
-<<<<<<< HEAD
-    private List<Likes> likeList = new ArrayList<>();
-=======
     private List<Likes> likesList = new ArrayList<>();
->>>>>>> b5b8924326e76ad608845dbad68bff3d8b36eee3
 
     @Builder
     public Beer(String beerName, String introduction, String content) {

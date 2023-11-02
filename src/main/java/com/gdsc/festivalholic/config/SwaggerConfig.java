@@ -23,8 +23,4 @@ public class SwaggerConfig {
                 .version("1.0.0");
     }
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> b5b8924326e76ad608845dbad68bff3d8b36eee3
