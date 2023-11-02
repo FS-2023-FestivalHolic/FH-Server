@@ -42,9 +42,8 @@ public class Beer {
     @Column(nullable = false)
     private Integer likesCnt;
 
-    @OneToMany(mappedBy = "beer", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    @OrderBy("id asc")
-    private List<BeerImage> beerImageList;
+    @Column(nullable = false)
+    private String Imageurl;
 
     @OneToMany(mappedBy = "beer")
     private List<Likes> likesList = new ArrayList<>();
