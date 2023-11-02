@@ -36,7 +36,8 @@ jobs:
         distribution: 'temurin'
       
     - name: Set YML
-      run: |
+    - uses: actions/checkout@v3
+    - run: |
         mkdir -p src/main/resources
         touch ./src/main/resources/application.yml
         echo "${{ secrets.YML_FILE }}" | base64 --decode > src/main/resources/application.yml
