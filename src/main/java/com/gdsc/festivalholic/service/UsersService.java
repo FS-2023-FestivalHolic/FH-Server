@@ -40,10 +40,11 @@ public class UsersService {
 
         for (int i=0; i<likesList.size(); i++) {
             Beer beer = likesList.get(i).getBeer();
-            beerList.add(new BeerLikesResponseDto(beer.getBeerName(), beerService.getImageUrl(beer.getId()) , beer.getLikesCnt()));
+            beerList.add(new BeerLikesResponseDto(beer.getId(), beer.getBeerName(), beerService.getImageUrl(beer.getId()) , beer.getLikesCnt()));
         }
 
         UsersResponseDto usersResponseDto = UsersResponseDto.builder()
+                .userId(users.getId())
                 .userName(users.getName())
                 .beerList(beerList)
                 .build();

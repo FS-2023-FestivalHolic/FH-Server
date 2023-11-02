@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UsersResponseDto {
 
+    @Schema(description = "유저 인덱스")
+    private Long userId;
+
     @Schema(description = "유저 이름")
     private String userName;
 
@@ -19,7 +22,8 @@ public class UsersResponseDto {
     private List<BeerLikesResponseDto> beerList;
 
     @Builder
-    public UsersResponseDto(String userName, List<BeerLikesResponseDto> beerList) {
+    public UsersResponseDto(Long userId, String userName, List<BeerLikesResponseDto> beerList) {
+        this.userId = userId;
         this.userName = userName;
         this.beerList = beerList;
     }
