@@ -70,6 +70,7 @@ public class BeerService {
             Beer beer = all.get(i);
 
             BeerListResponseDto beerListResponseDto = BeerListResponseDto.builder()
+                    .beerId(beer.getId())
                     .beerName(beer.getBeerName())
                     .hashTagList(getHashTagNamesFromBeer(beer))
                     .likeNum(0)
