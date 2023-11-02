@@ -39,12 +39,8 @@ public class Beer {
     @OrderBy("id asc")
     private List<BeerImage> beerImageList;
 
-<<<<<<< HEAD
     @OneToMany(mappedBy = "beer")
     private List<Likes> likeList = new ArrayList<>();
-=======
-    
->>>>>>> 403e5d616d60e6b5c7c19fc570fb8c1e53dd30ea
 
     @Builder
     public Beer(String beerName, String introduction, String content) {
