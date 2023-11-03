@@ -1,9 +1,9 @@
 package com.gdsc.festivalholic.domain.beer;
 
+import com.gdsc.festivalholic.domain.beerContent.BeerContent;
 import com.gdsc.festivalholic.domain.beerHashTag.BeerHashTag;
-import com.gdsc.festivalholic.domain.beerImage.BeerImage;
 import com.gdsc.festivalholic.domain.likes.Likes;
-import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -35,8 +35,8 @@ public class Beer {
     @Column(nullable = false)
     private String introduction;
 
-    @Column(nullable = false)
-    private String content;
+    @OneToMany(mappedBy = "beer")
+    private List<BeerContent> beerContentList = new ArrayList<>();
 
     @ColumnDefault("0")
     @Column(nullable = false)
@@ -46,11 +46,11 @@ public class Beer {
     private List<Likes> likesList = new ArrayList<>();
 
     @Builder
-    public Beer(String beerName, String introduction, String content) {
+    public Beer(String beerName, String introduction, List<BeerContent> beerContentList, Integer likesCnt) {
         this.beerName = beerName;
         this.introduction = introduction;
-        this.content = content;
-        this.likesCnt = 0;
+        this.beerContentList = beerContentList;
+        this.likesCnt = likesCnt;
     }
 
     @OneToMany(mappedBy = "beer")
@@ -59,4 +59,6 @@ public class Beer {
     public void addBeerHashTag(BeerHashTag beerHashTag) {
         this.beerHashTagList.add(beerHashTag);
     }
+
+    public void addBeerContent(BeerContent beerContent) { this.beerContentList.add(beerContent);}
 }

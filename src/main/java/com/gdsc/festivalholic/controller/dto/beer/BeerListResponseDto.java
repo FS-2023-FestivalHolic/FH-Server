@@ -14,14 +14,14 @@ public class BeerListResponseDto {
     private String beerName;
     private String imageUrl;
     private List<String> hashTagList;
-    private Integer likeNum;
+    private Integer likesCnt;
 
     @Builder
-    public BeerListResponseDto(Long beerId, String beerName, String imageUrl, List<String> hashTagList, Integer likeNum) {
+    public BeerListResponseDto(Long beerId, String beerName, String imageUrl, List<String> hashTagList, Integer likesCnt) {
         this.beerId = beerId;
         this.beerName = beerName;
         this.imageUrl = imageUrl;
         this.hashTagList = hashTagList;
-        this.likeNum = likeNum;
+        this.likesCnt = likesCnt;
     }
 }

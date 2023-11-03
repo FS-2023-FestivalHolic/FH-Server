@@ -5,9 +5,12 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.gdsc.festivalholic.controller.dto.beer.BeerListResponseDto;
 import com.gdsc.festivalholic.controller.dto.beer.BeerResponseDto;
 import com.gdsc.festivalholic.controller.dto.beer.BeerSaveRequestDto;
+import com.gdsc.festivalholic.controller.dto.beerContent.BeerContentDto;
 import com.gdsc.festivalholic.controller.dto.beerImage.BeerImageUploadDto;
 import com.gdsc.festivalholic.domain.beer.Beer;
 import com.gdsc.festivalholic.domain.beer.BeerRepository;
+import com.gdsc.festivalholic.domain.beerContent.BeerContent;
+import com.gdsc.festivalholic.domain.beerContent.BeerContentRepository;
 import com.gdsc.festivalholic.domain.beerHashTag.BeerHashTag;
 import com.gdsc.festivalholic.domain.beerHashTag.BeerHashTagRepository;
 import com.gdsc.festivalholic.domain.beerImage.BeerImage;
@@ -35,6 +38,7 @@ public class BeerService {
     private final HashTagRepository hashTagRepository;
     private final BeerHashTagRepository beerHashTagRepository;
     private final BeerImageRepository beerImageRepository;
+    private final BeerContentRepository beerContentRepository;
 
     private final AmazonS3Client amazonS3Client;
 
@@ -46,6 +50,7 @@ public class BeerService {
         MultipartFile file = beerImageUploadDto.getFile();
 
         addHashTagsToBeer(beerSaveRequestDto, beer);
+        addBeerContentToBeer(beerSaveRequestDto, beer);
         Long beerId = beerRepository.save(beer).getId();
 
         // 이미지 부분
@@ -59,30 +64,43 @@ public class BeerService {
     public BeerResponseDto findBeerById(Long beerId){
         Beer beer = findBeerEntityById(beerId);
         URL url = getImageUrl(beerId);
+        List<BeerContentDto> beerContentDtoList = getBeerContentDtoList(beer);
         List<String> hashTagList = getHashTagNamesFromBeer(beer);
-        return buildBeerResponseDto(beer, url, hashTagList);
+        return buildBeerResponseDto(beer, url, beerContentDtoList, hashTagList);
+    }
+
+    public List<BeerListResponseDto> findAllBeerByOrderByLikesCnt(){
+        List<Beer> all = beerRepository.findAllByOrderByLikesCntDesc();
+        return convertToBeerListResponseDto(all);
+    }
+
+    public List<BeerListResponseDto> findAllBeerByOrderByBeerName(){
+        List<Beer> all = beerRepository.findAllByOrderByBeerNameAsc();
+        return convertToBeerListResponseDto(all);
     }
 
     public List<BeerListResponseDto> findAllBeer(){
         List<Beer> all = beerRepository.findAll();
+        return convertToBeerListResponseDto(all);
+    }
+
+    private List<BeerListResponseDto> convertToBeerListResponseDto(List<Beer> beers){
         List<BeerListResponseDto> beerListResponseDtoList = new ArrayList<>();
-        for (int i = 0; i < all.size(); i++) {
-            Beer beer = all.get(i);
+        for (int i = 0; i < beers.size(); i++) {
+            Beer beer = beers.get(i);
 
             BeerListResponseDto beerListResponseDto = BeerListResponseDto.builder()
                     .beerId(beer.getId())
                     .beerName(beer.getBeerName())
                     .hashTagList(getHashTagNamesFromBeer(beer))
-                    .likeNum(0)
+                    .likesCnt(beer.getLikesCnt())
                     .imageUrl(getImageUrl(beer.getId()).toString())
                     .build();
 
             beerListResponseDtoList.add(beerListResponseDto);
-
         }
 
         return beerListResponseDtoList;
-
     }
 
     private Beer findBeerEntityById(Long beerId) {
@@ -97,12 +115,22 @@ public class BeerService {
         return hashTagList;
     }
 
-    private BeerResponseDto buildBeerResponseDto(Beer beer, URL url, List<String> hashTagList) {
+    private List<BeerContentDto> getBeerContentDtoList(Beer beer){
+        List<BeerContentDto> beerContentDtoList = new ArrayList<>();
+        for(BeerContent beerContent : beer.getBeerContentList()){
+            BeerContentDto beerContentDto = beerContent.toDto(beerContent);
+            beerContentDtoList.add(beerContentDto);
+        }
+        return beerContentDtoList;
+    }
+
+    private BeerResponseDto buildBeerResponseDto(Beer beer, URL url, List<BeerContentDto> beerContentDtoList, List<String> hashTagList) {
         return BeerResponseDto.builder()
                 .beerId(beer.getId())
                 .beerName(beer.getBeerName())
+                .likesCnt(beer.getLikesCnt())
                 .introduction(beer.getIntroduction())
-                .content(beer.getContent())
+                .beerContentList(beerContentDtoList)
                 .hashTagNames(hashTagList)
                 .imageUrl(url.toString())
                 .build();
@@ -124,6 +152,23 @@ public class BeerService {
             beerHashTagRepository.save(beerHashTag);
         }
         return hashTagList;
+    }
+
+    private void addBeerContentToBeer(BeerSaveRequestDto beerSaveRequestDto, Beer beer){
+        for(BeerContentDto beerContentDto : beerSaveRequestDto.getBeerContentDtoList()){
+            String subject = beerContentDto.getSubject();
+            String description = beerContentDto.getDescription();
+            System.out.println("addBeerContentToBeer : " + beer.getBeerName());
+
+            BeerContent build = BeerContent.builder()
+                    .subject(subject)
+                    .description(description)
+                    .beer(beer)
+                    .build();
+
+            beer.addBeerContent(build);
+            beerContentRepository.save(build);
+        }
     }
 
     private void uploadImage(MultipartFile file, Beer beer, Long beerId) {
