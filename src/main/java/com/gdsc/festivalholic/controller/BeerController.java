@@ -51,5 +51,19 @@ public class BeerController {
         return ResponseUtil.SUCCESS("모든 맥주 정보 조회를 완료하였습니다.", allBeer);
     }
 
+    @GetMapping("/likes")
+    public ResponseDto<List<BeerListResponseDto>> findAllBeerByOrderByLikesCnt(){
+        List<BeerListResponseDto> allBeerByOrderByLikesCnt = beerService.findAllBeerByOrderByLikesCnt();
+
+        return ResponseUtil.SUCCESS("좋아요 순으로 모든 맥주 정보 조회를 완료하였습니다.", allBeerByOrderByLikesCnt);
+    }
+
+    @GetMapping("/name")
+    public ResponseDto<List<BeerListResponseDto>> findAllBeerByOrderByBeerName(){
+        List<BeerListResponseDto> allBeerByOrderByBeerName = beerService.findAllBeerByOrderByBeerName();
+
+        return ResponseUtil.SUCCESS("좋아요 순으로 모든 맥주 정보 조회를 완료하였습니다.", allBeerByOrderByBeerName);
+    }
+
 
 }

@@ -69,11 +69,25 @@ public class BeerService {
         return buildBeerResponseDto(beer, url, beerContentDtoList, hashTagList);
     }
 
+    public List<BeerListResponseDto> findAllBeerByOrderByLikesCnt(){
+        List<Beer> all = beerRepository.findAllByOrderByLikesCntDesc();
+        return convertToBeerListResponseDto(all);
+    }
+
+    public List<BeerListResponseDto> findAllBeerByOrderByBeerName(){
+        List<Beer> all = beerRepository.findAllByOrderByBeerNameAsc();
+        return convertToBeerListResponseDto(all);
+    }
+
     public List<BeerListResponseDto> findAllBeer(){
         List<Beer> all = beerRepository.findAll();
+        return convertToBeerListResponseDto(all);
+    }
+
+    private List<BeerListResponseDto> convertToBeerListResponseDto(List<Beer> beers){
         List<BeerListResponseDto> beerListResponseDtoList = new ArrayList<>();
-        for (int i = 0; i < all.size(); i++) {
-            Beer beer = all.get(i);
+        for (int i = 0; i < beers.size(); i++) {
+            Beer beer = beers.get(i);
 
             BeerListResponseDto beerListResponseDto = BeerListResponseDto.builder()
                     .beerId(beer.getId())
@@ -84,11 +98,9 @@ public class BeerService {
                     .build();
 
             beerListResponseDtoList.add(beerListResponseDto);
-
         }
 
         return beerListResponseDtoList;
-
     }
 
     private Beer findBeerEntityById(Long beerId) {

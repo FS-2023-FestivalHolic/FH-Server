@@ -46,11 +46,11 @@ public class Beer {
     private List<Likes> likesList = new ArrayList<>();
 
     @Builder
-    public Beer(String beerName, String introduction, List<BeerContent> beerContentList) {
+    public Beer(String beerName, String introduction, List<BeerContent> beerContentList, Integer likesCnt) {
         this.beerName = beerName;
         this.introduction = introduction;
         this.beerContentList = beerContentList;
-        this.likesCnt = 0;
+        this.likesCnt = likesCnt;
     }
 
     @OneToMany(mappedBy = "beer")
