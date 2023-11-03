@@ -19,19 +19,22 @@ public class BeerSaveRequestDto {
     private String introduction;
     private List<BeerContentDto> beerContentDtoList;
     private List<Long> hashTagIds;
+    private Integer likesCnt;
 
     @Builder
-    public BeerSaveRequestDto(String beerName, String introduction, List<BeerContentDto> beerContentDtoList, List<Long> hashTagIds) {
+    public BeerSaveRequestDto(String beerName, String introduction, List<BeerContentDto> beerContentDtoList, List<Long> hashTagIds, Integer likesCnt) {
         this.beerName = beerName;
         this.introduction = introduction;
         this.beerContentDtoList = beerContentDtoList;
         this.hashTagIds = hashTagIds;
+        this.likesCnt = likesCnt;
     }
 
     public Beer toEntity() {
         return Beer.builder()
                 .beerName(beerName)
                 .introduction(introduction)
+                .likesCnt(likesCnt)
                 .beerContentList(toBeerContentListEntity(beerContentDtoList))
                 .build();
     }

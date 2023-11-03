@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface BeerRepository extends JpaRepository<Beer, Long> {
 
     @Modifying
@@ -14,5 +16,9 @@ public interface BeerRepository extends JpaRepository<Beer, Long> {
     @Modifying
     @Query("update Beer b set b.likesCnt = b.likesCnt - 1 where b.id = :id")
     int minusLikesCnt(@Param("id") Long id);
+
+    List<Beer> findAllByOrderByLikesCntDesc();
+
+    List<Beer> findAllByOrderByBeerNameAsc();
 
 }
