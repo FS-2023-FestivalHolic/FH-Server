@@ -79,7 +79,7 @@ public class BeerService {
                     .beerId(beer.getId())
                     .beerName(beer.getBeerName())
                     .hashTagList(getHashTagNamesFromBeer(beer))
-                    .likeNum(0)
+                    .likesCnt(beer.getLikesCnt())
                     .imageUrl(getImageUrl(beer.getId()).toString())
                     .build();
 
@@ -116,6 +116,7 @@ public class BeerService {
         return BeerResponseDto.builder()
                 .beerId(beer.getId())
                 .beerName(beer.getBeerName())
+                .likesCnt(beer.getLikesCnt())
                 .introduction(beer.getIntroduction())
                 .beerContentList(beerContentDtoList)
                 .hashTagNames(hashTagList)
