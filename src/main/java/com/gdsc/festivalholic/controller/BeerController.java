@@ -27,10 +27,7 @@ public class BeerController {
     @PostMapping("/create")
     public ResponseDto<Long> create(@RequestPart(value = "beerImageUploadDto") MultipartFile multipartFile,
                                     @RequestPart(value = "beerSaveRequestDto") BeerSaveRequestDto beerSaveRequestDto){
-        //예외처리 넣기
-
         BeerImageUploadDto beerImageUploadDto = new BeerImageUploadDto(multipartFile);
-
         Long beerId = beerService.create(beerSaveRequestDto, beerImageUploadDto);
 
         return ResponseUtil.SUCCESS("맥주 정보 생성을 완료하였습니다.", beerId);
@@ -52,7 +49,6 @@ public class BeerController {
         List<BeerListResponseDto> allBeer = beerService.findAllBeer();
 
         return ResponseUtil.SUCCESS("모든 맥주 정보 조회를 완료하였습니다.", allBeer);
-
     }
 
 
