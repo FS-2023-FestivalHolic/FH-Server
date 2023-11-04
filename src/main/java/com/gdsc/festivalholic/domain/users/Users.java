@@ -24,17 +24,17 @@ public class Users {
     @Column(nullable = false)
     private String email;
     private String name;
-    private String nickName;
+    private String nickname;
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Likes> likesList = new ArrayList<>();
 
     @Builder
-    public Users(String loginId, String password, String email, String name, String nickName) {
+    public Users(String loginId, String password, String email, String name, String nickname) {
         this.loginId = loginId;
         this.password = password;
         this.email = email;
         this.name = name;
-        this.nickName = nickName;
+        this.nickname = nickname;
     }
 }

@@ -12,16 +12,7 @@ public class UsersSaveRequestDto {
     private String password;
     private String email;
     private String name;
-    private String nickName;
-
-    @Builder
-    public UsersSaveRequestDto(String loginId, String password, String email, String name, String nickName) {
-        this.loginId = loginId;
-        this.password = password;
-        this.email = email;
-        this.name = name;
-        this.nickName = nickName;
-    }
+    private String nickname;
 
     public Users toEntity() {
         return Users.builder()
@@ -29,7 +20,7 @@ public class UsersSaveRequestDto {
                 .password(password)
                 .email(email)
                 .name(name)
-                .nickName(nickName)
+                .nickname(nickname)
                 .build();
     }
 }

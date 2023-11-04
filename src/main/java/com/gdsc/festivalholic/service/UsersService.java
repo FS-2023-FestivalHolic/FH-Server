@@ -1,6 +1,7 @@
 package com.gdsc.festivalholic.service;
 
 import com.gdsc.festivalholic.controller.dto.beer.BeerLikesResponseDto;
+import com.gdsc.festivalholic.controller.dto.login.LoginRequest;
 import com.gdsc.festivalholic.controller.dto.user.UsersResponseDto;
 import com.gdsc.festivalholic.controller.dto.user.UsersSaveRequestDto;
 import com.gdsc.festivalholic.domain.beer.Beer;
@@ -9,6 +10,7 @@ import com.gdsc.festivalholic.domain.likes.LikesRepository;
 import com.gdsc.festivalholic.domain.users.Users;
 import com.gdsc.festivalholic.domain.users.UsersRepository;
 import java.util.ArrayList;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -50,6 +52,25 @@ public class UsersService {
                 .build();
 
         return usersResponseDto;
+    }
+
+    public boolean checkLoginIdDuplicate(String loginId) {
+        return usersRepository.existsByLoginId(loginId);
+    }
+
+    public Users login(LoginRequest loginRequest) {
+        Optional<Users> optionalUsers = usersRepository.findByLoginId(loginRequest.getLoginId());
+
+        if(optionalUsers.isEmpty()) {
+            return null;
+        }
+        Users users = optionalUsers.get();
+
+        if(!users.getPassword().equals(loginRequest.getPassword())){
+            return null;
+        }
+
+        return users;
     }
 
 }

@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class SessionManager {
 
-    public static final String SESSION_COOKIE_NAME = "mySessionId";
+    public static final String SESSION_COOKIE_NAME = "sessionId";
     private Map<String, Object> sessionStore = new ConcurrentHashMap<>();
 
     public void createSession(Object value, HttpServletResponse response) {
@@ -50,6 +50,10 @@ public class SessionManager {
                 .filter(cookie -> cookie.getName().equals(cookieName))
                 .findAny()
                 .orElse(null);
+    }
+
+    public String findMySessionId(HttpServletResponse response) {
+        return response.getHeader("Set-Cookie");
     }
 
 }
