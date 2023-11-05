@@ -18,15 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class LikesService {
 
     private final LikesRepository likesRepository;
-    private final UsersRepository usersRepository;
     private final BeerRepository beerRepository;
     private final BeerService beerService;
 
-    public Long insert(LikesRequestDto likesRequestDto) {
-        Users users = usersRepository.findById(likesRequestDto.getUserId())
-                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다. id=" + likesRequestDto.getUserId()));
-        Beer beer = beerRepository.findById(likesRequestDto.getBeerId())
-                .orElseThrow(() -> new IllegalArgumentException("해당 맥주가 없습니다. id=" + likesRequestDto.getBeerId()));
+    public Long insert(Users users, Long beerId) {
+        Beer beer = beerRepository.findById(beerId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 맥주가 없습니다. id=" + beerId));
 
         if(likesRepository.findByUsersAndBeer(users, beer).isPresent()) {
             throw new RuntimeException("이미 좋아요 상태입니다.");
