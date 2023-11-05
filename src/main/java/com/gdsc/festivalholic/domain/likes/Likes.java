@@ -30,20 +30,10 @@ public class Likes {
     @JoinColumn(name = "beerId")
     private Beer beer;
 
-    public void setUsers(Users users) {
-        this.users = users;
-        users.getLikesList().add(this);
-    }
-
-    public void setBeer(Beer beer) {
-        this.beer = beer;
-        beer.getLikesList().add(this);
-    }
-
     @Builder
     public Likes(Users users, Beer beer) {
-        this.setBeer(beer);
-        this.setUsers(users);
+        this.beer = beer;
+        this.users = users;
     }
 
 }

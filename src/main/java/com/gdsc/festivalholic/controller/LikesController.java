@@ -8,6 +8,7 @@ import com.gdsc.festivalholic.config.response.ResponseUtil;
 import com.gdsc.festivalholic.controller.dto.likes.LikesRequestDto;
 import com.gdsc.festivalholic.domain.users.Users;
 import com.gdsc.festivalholic.service.LikesService;
+import com.gdsc.festivalholic.service.UsersService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -16,7 +17,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,32 +40,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class LikesController {
 
     private final LikesService likesService;
-    private final SessionManager sessionManager;
+    private final UsersService usersService;
 
     @Operation(summary = "좋아요", description = "")
-    @PostMapping("")
-    public ResponseDto<Long> like(@RequestBody LikesRequestDto likeRequestDto, HttpServletRequest httpServletRequest) {
-        Users users = (Users) sessionManager.getSession(httpServletRequest);
-
-        if(users == null) {
-            throw new ApiException(ErrorCode.NOT_LOGIN);
-        }
-
-        return ResponseUtil.SUCCESS("좋아요 성공", likesService.insert(likeRequestDto));
+    @GetMapping("/beers/{beerId}")
+    public ResponseDto<Long> like(@PathVariable Long beerId, HttpServletRequest httpServletRequest) {
+        System.out.println(httpServletRequest.getCookies());
+        Users users = usersService.getUserBySessionId(httpServletRequest);
+        return ResponseUtil.SUCCESS("좋아요 성공", likesService.insert(users, beerId));
     }
 
     @Operation(summary = "좋아요 취소", description = "좋아요 취소 API")
     @DeleteMapping("/{likesId}")
     public ResponseDto delete(@Parameter(description = "좋아요 인덱스 번호") @PathVariable Long likesId, HttpServletRequest httpServletRequest) {
-        Users users = (Users) sessionManager.getSession(httpServletRequest);
-
-        if(users == null) {
-            throw new ApiException(ErrorCode.NOT_LOGIN);
-        }
-
+        usersService.getUserBySessionId(httpServletRequest);
         likesService.delete(likesId);
         return ResponseUtil.SUCCESS("삭제 완료", likesId);
     }
-
-
+    
 }
