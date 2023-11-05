@@ -6,6 +6,7 @@ import com.gdsc.festivalholic.config.exception.ErrorCode;
 import com.gdsc.festivalholic.config.response.ResponseDto;
 import com.gdsc.festivalholic.config.response.ResponseUtil;
 import com.gdsc.festivalholic.controller.dto.login.LoginRequest;
+import com.gdsc.festivalholic.controller.dto.login.SessionIdDto;
 import com.gdsc.festivalholic.controller.dto.user.UsersResponseDto;
 import com.gdsc.festivalholic.controller.dto.user.UsersSaveRequestDto;
 import com.gdsc.festivalholic.domain.users.Users;
@@ -60,17 +61,19 @@ public class UsersController {
     }
 
     @PostMapping("/login")
-    public ResponseDto<Object> login(@RequestBody LoginRequest loginRequest, HttpServletResponse httpServletResponse) {
+    public ResponseDto<SessionIdDto> login(@RequestBody LoginRequest loginRequest, HttpServletResponse httpServletResponse) {
         Users users = userService.login(loginRequest);
         if(users == null) {
             throw new ApiException(ErrorCode.LOGIN_ERROR);
         }
 
-        sessionManager.createSession(users, httpServletResponse);
-        String mySessionId = sessionManager.findMySessionId(httpServletResponse);
-        System.out.println(mySessionId);
+        String sessionId = sessionManager.createSession(users, httpServletResponse);
+//        String mySessionId = sessionManager.findMySessionId(httpServletResponse);
+//        System.out.println(mySessionId);
 
-        return ResponseUtil.SUCCESS("로그인 성공", mySessionId);
+        SessionIdDto sessionIdDto = SessionIdDto.builder().sessionId(sessionId).build();
+
+        return ResponseUtil.SUCCESS("로그인 성공", sessionIdDto);
     }
 
     @GetMapping("/logout")
