@@ -21,4 +21,8 @@ public interface BeerRepository extends JpaRepository<Beer, Long> {
 
     List<Beer> findAllByOrderByBeerNameAsc();
 
+    @Query("select b from Beer b join b.beerHashTagList bh where bh.hashTag.id in :hashTagIds")
+    List<Beer> findByHashTagIds(@Param("hashTagIds") List<Long> hashTagIds);
+
 }
+
