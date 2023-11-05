@@ -10,7 +10,9 @@ import com.gdsc.festivalholic.controller.dto.login.SessionIdDto;
 import com.gdsc.festivalholic.controller.dto.user.UsersResponseDto;
 import com.gdsc.festivalholic.controller.dto.user.UsersSaveRequestDto;
 import com.gdsc.festivalholic.domain.users.Users;
+import com.gdsc.festivalholic.service.LikesService;
 import com.gdsc.festivalholic.service.UsersService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,7 +28,6 @@ import org.springframework.web.bind.annotation.*;
 public class UsersController {
 
     private final UsersService userService;
-    private final SessionManager sessionManager;
 
     //회원가입   -> 나중에 아이디, 이름 등 pattern 예외처리 추가
     @PostMapping("/sign-up")
@@ -51,34 +52,18 @@ public class UsersController {
     //내 정보 조회
     @GetMapping("")
     public ResponseDto<UsersResponseDto> findById(HttpServletRequest httpServletRequest) {
-        Users users = (Users) sessionManager.getSession(httpServletRequest);
-
-        if(users == null) {
-            throw new ApiException(ErrorCode.NOT_LOGIN);
-        }
-
+        Users users = userService.getUserBySessionId(httpServletRequest);
         return ResponseUtil.SUCCESS("내 정보 조회에 성공하였습니다.", userService.findById(users.getId()));
     }
 
     @PostMapping("/login")
     public ResponseDto<SessionIdDto> login(@RequestBody LoginRequest loginRequest, HttpServletResponse httpServletResponse) {
-        Users users = userService.login(loginRequest);
-        if(users == null) {
-            throw new ApiException(ErrorCode.LOGIN_ERROR);
-        }
-
-        String sessionId = sessionManager.createSession(users, httpServletResponse);
-//        String mySessionId = sessionManager.findMySessionId(httpServletResponse);
-//        System.out.println(mySessionId);
-
-        SessionIdDto sessionIdDto = SessionIdDto.builder().sessionId(sessionId).build();
-
-        return ResponseUtil.SUCCESS("로그인 성공", sessionIdDto);
+        return ResponseUtil.SUCCESS("로그인 성공", userService.login(loginRequest, httpServletResponse));
     }
 
     @GetMapping("/logout")
     public ResponseDto<String> logout(HttpServletRequest httpServletRequest) {
-        sessionManager.expire(httpServletRequest);
+        userService.logout(httpServletRequest);
         return ResponseUtil.SUCCESS("로그아웃 완료", "");
     }
 
