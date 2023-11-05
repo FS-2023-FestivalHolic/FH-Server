@@ -7,12 +7,15 @@ import com.gdsc.festivalholic.controller.dto.beer.BeerListResponseDto;
 import com.gdsc.festivalholic.controller.dto.beer.BeerResponseDto;
 import com.gdsc.festivalholic.controller.dto.beer.BeerSaveRequestDto;
 import com.gdsc.festivalholic.controller.dto.beerImage.BeerImageUploadDto;
+import com.gdsc.festivalholic.domain.hashTag.HashTag;
 import com.gdsc.festivalholic.service.BeerService;
+import com.gdsc.festivalholic.service.HashTagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @RestController
@@ -21,6 +24,7 @@ public class BeerController {
 
 
     private final BeerService beerService;
+    private final HashTagService hashtagService;
 
 
     //수제 맥주 생성 API
@@ -63,6 +67,12 @@ public class BeerController {
         List<BeerListResponseDto> allBeerByOrderByBeerName = beerService.findAllBeerByOrderByBeerName();
 
         return ResponseUtil.SUCCESS("좋아요 순으로 모든 맥주 정보 조회를 완료하였습니다.", allBeerByOrderByBeerName);
+    }
+
+    @GetMapping("/hashTags")
+    public ResponseDto<List<BeerListResponseDto>> findBeersByHasTags(@RequestParam List<Long> hashTagIds){
+        List<BeerListResponseDto> beers = beerService.findBeersByHashTags(hashTagIds);
+        return ResponseUtil.SUCCESS("좋아요 순으로 모든 맥주 정보 조회를 완료하였습니다.", beers);
     }
 
 

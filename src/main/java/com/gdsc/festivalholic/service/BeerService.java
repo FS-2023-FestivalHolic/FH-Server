@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional
@@ -82,6 +84,14 @@ public class BeerService {
     public List<BeerListResponseDto> findAllBeer(){
         List<Beer> all = beerRepository.findAll();
         return convertToBeerListResponseDto(all);
+    }
+
+    public List<BeerListResponseDto> findBeersByHashTags(List<Long> hashTags) {
+        List<BeerHashTag> beerHashTags = beerHashTagRepository.findByHashTagIn(hashTags);
+        List<Beer> beers = beerHashTags.stream()
+                .map(BeerHashTag::getBeer)
+                .collect(Collectors.toList());
+        return convertToBeerListResponseDto(beers);
     }
 
     private List<BeerListResponseDto> convertToBeerListResponseDto(List<Beer> beers){
