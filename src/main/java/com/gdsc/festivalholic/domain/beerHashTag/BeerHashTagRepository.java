@@ -7,5 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 public interface BeerHashTagRepository extends JpaRepository<BeerHashTag, Long> {
+
     List<BeerHashTag> findByHashTagIn(List<Long> hashTags);
 }

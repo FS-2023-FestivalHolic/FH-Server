@@ -71,8 +71,9 @@ public class BeerController {
 
     @GetMapping("/hashTags")
     public ResponseDto<List<BeerListResponseDto>> findBeersByHasTags(@RequestParam List<Long> hashTagIds){
+        System.out.println(hashTagIds.get(0));
         List<BeerListResponseDto> beers = beerService.findBeersByHashTags(hashTagIds);
-        return ResponseUtil.SUCCESS("좋아요 순으로 모든 맥주 정보 조회를 완료하였습니다.", beers);
+        return ResponseUtil.SUCCESS("입력받은 해쉬태그 기준으로 맥주 정보 조회를 완료하였습니다.", beers);
     }
 
 

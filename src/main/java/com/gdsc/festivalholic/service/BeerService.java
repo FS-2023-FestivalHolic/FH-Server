@@ -87,10 +87,7 @@ public class BeerService {
     }
 
     public List<BeerListResponseDto> findBeersByHashTags(List<Long> hashTags) {
-        List<BeerHashTag> beerHashTags = beerHashTagRepository.findByHashTagIn(hashTags);
-        List<Beer> beers = beerHashTags.stream()
-                .map(BeerHashTag::getBeer)
-                .collect(Collectors.toList());
+        List<Beer> beers = beerRepository.findByHashTagIds(hashTags);
         return convertToBeerListResponseDto(beers);
     }
 
