@@ -38,6 +38,10 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 
 	implementation 'com.mysql:mysql-connector-j:8.0.32'
+
+	implementation 'com.google.zxing:core:3.4.1'
+	implementation 'com.google.zxing:javase:3.4.1'
+
 }
 
 tasks.named('test') {

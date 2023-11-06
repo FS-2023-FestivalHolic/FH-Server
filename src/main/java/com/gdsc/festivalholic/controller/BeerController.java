@@ -7,12 +7,22 @@ import com.gdsc.festivalholic.controller.dto.beer.BeerListResponseDto;
 import com.gdsc.festivalholic.controller.dto.beer.BeerResponseDto;
 import com.gdsc.festivalholic.controller.dto.beer.BeerSaveRequestDto;
 import com.gdsc.festivalholic.controller.dto.beerImage.BeerImageUploadDto;
+import com.gdsc.festivalholic.domain.hashTag.HashTag;
 import com.gdsc.festivalholic.service.BeerService;
+import com.gdsc.festivalholic.service.HashTagService;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @RestController
@@ -21,6 +31,7 @@ public class BeerController {
 
 
     private final BeerService beerService;
+    private final HashTagService hashtagService;
 
 
     //수제 맥주 생성 API
@@ -65,5 +76,11 @@ public class BeerController {
         return ResponseUtil.SUCCESS("좋아요 순으로 모든 맥주 정보 조회를 완료하였습니다.", allBeerByOrderByBeerName);
     }
 
+    @GetMapping("/hashTags")
+    public ResponseDto<List<BeerListResponseDto>> findBeersByHasTags(@RequestParam List<Long> hashTagIds){
+        System.out.println(hashTagIds.get(0));
+        List<BeerListResponseDto> beers = beerService.findBeersByHashTags(hashTagIds);
+        return ResponseUtil.SUCCESS("입력받은 해쉬태그 기준으로 맥주 정보 조회를 완료하였습니다.", beers);
+    }
 
 }
