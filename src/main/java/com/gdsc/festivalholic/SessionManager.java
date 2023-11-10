@@ -24,12 +24,18 @@ public class SessionManager {
         String sessionId = UUID.randomUUID().toString();
         sessionStore.put(sessionId, value);
 
+        String cookie = "sessionId=" + sessionId +";domain=localhost;max-age=604800;path=/;SameSite=None;";
         //쿠키 생성
         Cookie mySessionCookie = new Cookie(SESSION_COOKIE_NAME, sessionId);
-        mySessionCookie.setPath("/");
+//        mySessionCookie.setPath("/");
+//        mySessionCookie.setDomain("localhost");
+//        mySessionCookie.setHttpOnly(true);
+//        mySessionCookie.setMaxAge(604800);
+//        mySessionCookie.setAttribute("SameSite", "None");
 //        mySessionCookie.setDomain("3.34.177.220");
-        response.addCookie(mySessionCookie);
+//        response.addCookie(mySessionCookie);
 
+        response.setHeader("Set-Cookie", cookie);
         return sessionId;
     }
 
