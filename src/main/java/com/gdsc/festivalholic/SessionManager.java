@@ -4,6 +4,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -26,14 +27,22 @@ public class SessionManager {
 
 //        String cookie = "sessionId=" + sessionId +";domain=localhost;max-age=604800;path=/;SameSite=None;";
         //쿠키 생성
-        Cookie mySessionCookie = new Cookie(SESSION_COOKIE_NAME, sessionId);
-        mySessionCookie.setPath("/");
-        mySessionCookie.setDomain("localhost");
-        mySessionCookie.setHttpOnly(true);
-        mySessionCookie.setMaxAge(604800);
+        ResponseCookie cookie = ResponseCookie.from(SESSION_COOKIE_NAME, sessionId)
+                .path("/")
+                .sameSite("Lax")
+                .httpOnly(false)
+//                .secure(true)
+                .maxAge(604800)
+                .build();
+        response.addHeader("Set-Cookie", cookie.toString());
+//        Cookie mySessionCookie = new Cookie(SESSION_COOKIE_NAME, sessionId);
+//        mySessionCookie.setPath("/");
+//        mySessionCookie.setDomain("localhost");
+//        mySessionCookie.setHttpOnly(true);
+//        mySessionCookie.setMaxAge(604800);
 //        mySessionCookie.setAttribute("SameSite", "None");
 //        mySessionCookie.setDomain("3.34.177.220");
-        response.addCookie(mySessionCookie);
+//        response.addCookie(mySessionCookie);
 
 //        response.setHeader("Set-Cookie", cookie);
         return sessionId;
