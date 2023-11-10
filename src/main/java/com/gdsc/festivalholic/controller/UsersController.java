@@ -56,7 +56,7 @@ public class UsersController {
         return ResponseUtil.SUCCESS("내 정보 조회에 성공하였습니다.", userService.findById(users.getId()));
     }
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     public ResponseDto<SessionIdDto> login(@RequestBody LoginRequest loginRequest, HttpServletResponse httpServletResponse) {
         return ResponseUtil.SUCCESS("로그인 성공", userService.login(loginRequest, httpServletResponse));
     }
