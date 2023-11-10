@@ -30,7 +30,6 @@ public class SessionManager {
         ResponseCookie cookie = ResponseCookie.from(SESSION_COOKIE_NAME, sessionId)
                 .path("/")
                 .sameSite("Lax")
-                .domain("localhost")
                 .httpOnly(false)
                 .secure(false)
                 .maxAge(604800)
