@@ -97,4 +97,16 @@ public class UsersService {
         return users;
     }
 
+    public SessionIdDto login2(String loginId, String password, HttpServletResponse httpServletResponse) {
+
+        Optional<Users> optionalUsers = usersRepository.findByLoginId(loginId);
+
+        Users users = optionalUsers.get();
+
+        String sessionId = sessionManager.createSession(users, httpServletResponse);
+        SessionIdDto sessionIdDto = SessionIdDto.builder().sessionId(sessionId).build();
+
+        return sessionIdDto;
+
+    }
 }

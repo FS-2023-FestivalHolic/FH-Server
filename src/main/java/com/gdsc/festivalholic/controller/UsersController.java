@@ -56,9 +56,14 @@ public class UsersController {
         return ResponseUtil.SUCCESS("내 정보 조회에 성공하였습니다.", userService.findById(users.getId()));
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseDto<SessionIdDto> login(@RequestBody LoginRequest loginRequest, HttpServletResponse httpServletResponse) {
         return ResponseUtil.SUCCESS("로그인 성공", userService.login(loginRequest, httpServletResponse));
+    }
+
+    @GetMapping("/login/{loginId}/{password}")
+    public ResponseDto<SessionIdDto> login(@PathVariable("loginId") String loginId, @PathVariable("password") String password, HttpServletResponse httpServletResponse) {
+        return ResponseUtil.SUCCESS("로그인 성공", userService.login2(loginId, password, httpServletResponse));
     }
 
     @GetMapping("/logout")
