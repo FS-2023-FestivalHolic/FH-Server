@@ -31,7 +31,7 @@ public class SessionManager {
                 .path("/")
                 .sameSite("Lax")
                 .httpOnly(false)
-//                .secure(true)
+                .secure(true)
                 .maxAge(604800)
                 .build();
         response.addHeader("Set-Cookie", cookie.toString());
