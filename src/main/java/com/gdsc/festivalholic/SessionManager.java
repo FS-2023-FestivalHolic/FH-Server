@@ -29,9 +29,9 @@ public class SessionManager {
         //쿠키 생성
         ResponseCookie cookie = ResponseCookie.from(SESSION_COOKIE_NAME, sessionId)
                 .path("/")
-                .sameSite("None")
+                .sameSite("Lax")
                 .httpOnly(false)
-                .secure(true)
+//                .secure(true)
                 .maxAge(604800)
                 .build();
         response.addHeader("Set-Cookie", cookie.toString());
