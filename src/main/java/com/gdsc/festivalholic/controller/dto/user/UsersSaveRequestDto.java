@@ -1,7 +1,12 @@
 package com.gdsc.festivalholic.controller.dto.user;
 
+import static com.gdsc.festivalholic.config.exception.ErrorCode.USER_EMPTY_LOGIN_ID;
+
 import com.gdsc.festivalholic.domain.users.Users;
-import lombok.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter

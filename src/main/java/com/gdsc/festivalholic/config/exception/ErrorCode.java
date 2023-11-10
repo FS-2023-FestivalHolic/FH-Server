@@ -17,8 +17,8 @@ public enum ErrorCode {
     LOGIN_ERROR(400, "로그인 아이디 또는 비밀번호가 틀렸습니다.", 424),
     NOT_LOGIN(400, "로그인 해주세요", 425);
 
-
     private final int status;
     private final String message;
     private final int code;
+
 }
