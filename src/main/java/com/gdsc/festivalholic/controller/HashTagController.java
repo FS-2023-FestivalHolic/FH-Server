@@ -22,8 +22,6 @@ public class HashTagController {
     public ResponseDto<Long> create(@RequestBody HashTagSaveRequestDto hashTagSaveRequestDto){
         //예외처리 넣기
 
-
-
         Long hashTagId = hashTagService.create(hashTagSaveRequestDto);
 
         return ResponseUtil.SUCCESS("해쉬태그 생성 완료하였습니다.", hashTagId);

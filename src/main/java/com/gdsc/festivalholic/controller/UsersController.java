@@ -21,6 +21,8 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.http.HttpHeaders;
+
 @Tag(name = "유저 API", description = "유저")
 @RequiredArgsConstructor
 @RestController
@@ -51,7 +53,9 @@ public class UsersController {
 
     //내 정보 조회
     @GetMapping("")
-    public ResponseDto<UsersResponseDto> findById(HttpServletRequest httpServletRequest) {
+    public ResponseDto<UsersResponseDto> findById(HttpServletRequest httpServletRequest, @RequestHeader("sessionId") String headers) {
+        System.out.println("====================================");
+        System.out.println("Header : " + headers);
         Users users = userService.getUserBySessionId(httpServletRequest);
         return ResponseUtil.SUCCESS("내 정보 조회에 성공하였습니다.", userService.findById(users.getId()));
     }
