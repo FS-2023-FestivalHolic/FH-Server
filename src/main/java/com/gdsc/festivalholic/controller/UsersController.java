@@ -57,7 +57,7 @@ public class UsersController {
         System.out.println("====================================");
         System.out.println("Header : " + headers);
         Users users = userService.getUserBySessionId(httpServletRequest);
-        return ResponseUtil.SUCCESS("내 정보 조회에 성공하였습니다.", userService.findById(users.getId()));
+        return ResponseUtil.SUCCESS("내 정보 조회에 성공하였습니다." + headers, userService.findById(users.getId()));
     }
 
     @PostMapping("/login")
