@@ -97,6 +97,11 @@ public class UsersService {
         return users;
     }
 
+    public Users getUserByStringSessionId(String header){
+        Users userInfo = (Users) sessionManager.getUserInfo(header);
+        return userInfo;
+    }
+
     public SessionIdDto login2(String loginId, String password, HttpServletResponse httpServletResponse) {
 
         Optional<Users> optionalUsers = usersRepository.findByLoginId(loginId);

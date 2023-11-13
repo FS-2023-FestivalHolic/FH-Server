@@ -56,7 +56,7 @@ public class UsersController {
     public ResponseDto<UsersResponseDto> findById(HttpServletRequest httpServletRequest, @RequestHeader("sessionId") String headers) {
         System.out.println("====================================");
         System.out.println("Header : " + headers);
-        Users users = userService.getUserBySessionId(httpServletRequest);
+        Users users = userService.getUserByStringSessionId(headers);
         return ResponseUtil.SUCCESS("내 정보 조회에 성공하였습니다." + headers, userService.findById(users.getId()));
     }
 

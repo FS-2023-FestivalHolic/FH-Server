@@ -56,6 +56,11 @@ public class SessionManager {
         return sessionStore.get(sessionCookie.getValue());
     }
 
+    public Object getUserInfo(String sessionId){
+        Object o = sessionStore.get(sessionId);
+        return o;
+    }
+
     public void expire(HttpServletRequest request) {
         Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
         if (sessionCookie != null) {
