@@ -9,6 +9,7 @@ import com.gdsc.festivalholic.controller.dto.login.LoginRequest;
 import com.gdsc.festivalholic.controller.dto.login.SessionIdDto;
 import com.gdsc.festivalholic.controller.dto.user.UsersResponseDto;
 import com.gdsc.festivalholic.controller.dto.user.UsersSaveRequestDto;
+import com.gdsc.festivalholic.domain.TokenInfo;
 import com.gdsc.festivalholic.domain.users.Users;
 import com.gdsc.festivalholic.service.LikesService;
 import com.gdsc.festivalholic.service.UsersService;
@@ -52,17 +53,17 @@ public class UsersController {
     }
 
     //내 정보 조회
-    @GetMapping("")
-    public ResponseDto<UsersResponseDto> findById(HttpServletRequest httpServletRequest, @RequestHeader("sessionId") String headers) {
-        System.out.println("====================================");
-        System.out.println("Header : " + headers);
-        Users users = userService.getUserByStringSessionId(headers);
-        return ResponseUtil.SUCCESS("내 정보 조회에 성공하였습니다." + headers, userService.findById(users.getId()));
-    }
+//    @GetMapping("")
+//    public ResponseDto<UsersResponseDto> findById(HttpServletRequest httpServletRequest, @RequestHeader("sessionId") String headers) {
+//        System.out.println("====================================");
+//        System.out.println("Header : " + headers);
+//        Users users = userService.getUserByStringSessionId(headers,httpServletRequest);
+//        return ResponseUtil.SUCCESS("내 정보 조회에 성공하였습니다." + headers, userService.findById(users.getId()));
+//    }
 
     @PostMapping("/login")
-    public ResponseDto<SessionIdDto> login(@RequestBody LoginRequest loginRequest, HttpServletResponse httpServletResponse) {
-        return ResponseUtil.SUCCESS("로그인 성공", userService.login(loginRequest, httpServletResponse));
+    public ResponseDto<TokenInfo> login(@RequestBody LoginRequest loginRequest) {
+        return ResponseUtil.SUCCESS("로그인 성공", userService.login3(loginRequest));
     }
 
     @GetMapping("/login/{loginId}/{password}")

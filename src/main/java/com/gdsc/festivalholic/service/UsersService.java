@@ -6,11 +6,13 @@ import com.gdsc.festivalholic.controller.dto.login.LoginRequest;
 import com.gdsc.festivalholic.controller.dto.login.SessionIdDto;
 import com.gdsc.festivalholic.controller.dto.user.UsersResponseDto;
 import com.gdsc.festivalholic.controller.dto.user.UsersSaveRequestDto;
+import com.gdsc.festivalholic.domain.TokenInfo;
 import com.gdsc.festivalholic.domain.beer.Beer;
 import com.gdsc.festivalholic.domain.likes.Likes;
 import com.gdsc.festivalholic.domain.likes.LikesRepository;
 import com.gdsc.festivalholic.domain.users.Users;
 import com.gdsc.festivalholic.domain.users.UsersRepository;
+import com.gdsc.festivalholic.jwt.JwtTokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -19,6 +21,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +36,10 @@ public class UsersService {
     private final UsersRepository usersRepository;
     private final LikesRepository likesRepository;
     private final BeerService beerService;
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final JwtTokenProvider jwtTokenProvider;
+
+
 
     @Autowired
     private final SessionManager sessionManager;
@@ -113,5 +122,18 @@ public class UsersService {
 
         return sessionIdDto;
 
+    }
+
+    public TokenInfo login3(LoginRequest loginRequest){
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginRequest.getLoginId(), loginRequest.getPassword());
+
+        // 2. 실제 검증 (사용자 비밀번호 체크)이 이루어지는 부분
+        // authenticate 매서드가 실행될 때 CustomUserDetailsService 에서 만든 loadUserByUsername 메서드가 실행
+        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+
+        // 3. 인증 정보를 기반으로 JWT 토큰 생성
+        TokenInfo tokenInfo = jwtTokenProvider.generateToken(authentication);
+
+        return tokenInfo;
     }
 }
