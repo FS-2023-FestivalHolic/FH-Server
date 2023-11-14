@@ -80,28 +80,6 @@ public class UsersService {
         return usersRepository.existsByLoginId(loginId);
     }
 
-    public SessionIdDto login(LoginRequest loginRequest, HttpServletResponse response) {
-        Optional<Users> optionalUsers = usersRepository.findByLoginId(loginRequest.getLoginId());
-
-        if(optionalUsers.isEmpty()) {
-            throw new IllegalArgumentException("로그인 아이디 또는 비밀번호가 틀렸습니다.");
-        }
-        Users users = optionalUsers.get();
-
-        if(!users.getPassword().equals(loginRequest.getPassword())){
-            throw new IllegalArgumentException("로그인 아이디 또는 비밀번호가 틀렸습니다.");
-        }
-
-        String sessionId = sessionManager.createSession(users, response);
-        SessionIdDto sessionIdDto = SessionIdDto.builder().sessionId(sessionId).build();
-
-        return sessionIdDto;
-    }
-
-    public void logout(HttpServletRequest request) {
-        sessionManager.expire(request);
-    }
-
     public Users getUserByToken(String token) {
 
         Authentication authentication = jwtTokenProvider.getAuthentication(token);
@@ -116,25 +94,7 @@ public class UsersService {
         return users;
     }
 
-    public Users getUserByStringSessionId(String header){
-        Users userInfo = (Users) sessionManager.getUserInfo(header);
-        return userInfo;
-    }
-
-    public SessionIdDto login2(String loginId, String password, HttpServletResponse httpServletResponse) {
-
-        Optional<Users> optionalUsers = usersRepository.findByLoginId(loginId);
-
-        Users users = optionalUsers.get();
-
-        String sessionId = sessionManager.createSession(users, httpServletResponse);
-        SessionIdDto sessionIdDto = SessionIdDto.builder().sessionId(sessionId).build();
-
-        return sessionIdDto;
-
-    }
-
-    public TokenInfo login3(LoginRequest loginRequest){
+    public TokenInfo login(LoginRequest loginRequest){
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginRequest.getLoginId(), loginRequest.getPassword());
 
         // 2. 실제 검증 (사용자 비밀번호 체크)이 이루어지는 부분

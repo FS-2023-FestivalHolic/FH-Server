@@ -61,18 +61,7 @@ public class UsersController {
 
     @PostMapping("/login")
     public ResponseDto<TokenInfo> login(@RequestBody LoginRequest loginRequest) {
-        return ResponseUtil.SUCCESS("로그인 성공", userService.login3(loginRequest));
-    }
-
-    @GetMapping("/login/{loginId}/{password}")
-    public ResponseDto<SessionIdDto> login(@PathVariable("loginId") String loginId, @PathVariable("password") String password, HttpServletResponse httpServletResponse) {
-        return ResponseUtil.SUCCESS("로그인 성공", userService.login2(loginId, password, httpServletResponse));
-    }
-
-    @GetMapping("/logout")
-    public ResponseDto<String> logout(HttpServletRequest httpServletRequest) {
-        userService.logout(httpServletRequest);
-        return ResponseUtil.SUCCESS("로그아웃 완료", "");
+        return ResponseUtil.SUCCESS("로그인 성공", userService.login(loginRequest));
     }
 
 }

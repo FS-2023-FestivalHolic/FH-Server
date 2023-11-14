@@ -35,16 +35,6 @@ public class SessionManager {
                 .maxAge(604800)
                 .build();
         response.addHeader("Set-Cookie", cookie.toString());
-//        Cookie mySessionCookie = new Cookie(SESSION_COOKIE_NAME, sessionId);
-//        mySessionCookie.setPath("/");
-//        mySessionCookie.setDomain("localhost");
-//        mySessionCookie.setHttpOnly(true);
-//        mySessionCookie.setMaxAge(604800);
-//        mySessionCookie.setAttribute("SameSite", "None");
-//        mySessionCookie.setDomain("3.34.177.220");
-//        response.addCookie(mySessionCookie);
-
-//        response.setHeader("Set-Cookie", cookie);
         return sessionId;
     }
 
@@ -76,10 +66,6 @@ public class SessionManager {
                 .filter(cookie -> cookie.getName().equals(cookieName))
                 .findAny()
                 .orElse(null);
-    }
-
-    public String findMySessionId(HttpServletResponse response) {
-        return response.getHeader("Set-Cookie");
     }
 
 }
