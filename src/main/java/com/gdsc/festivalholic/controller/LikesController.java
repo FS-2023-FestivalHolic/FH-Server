@@ -18,13 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "좋아요", description = "Likes Controller")
 @ApiResponses({
@@ -44,16 +38,14 @@ public class LikesController {
 
     @Operation(summary = "좋아요", description = "")
     @GetMapping("/beers/{beerId}")
-    public ResponseDto<Long> like(@PathVariable Long beerId, HttpServletRequest httpServletRequest) {
-        System.out.println(httpServletRequest.getCookies());
-        Users users = usersService.getUserBySessionId(httpServletRequest);
-        return ResponseUtil.SUCCESS("좋아요 성공", likesService.insert(users, beerId));
+    public ResponseDto<Long> like(@PathVariable Long beerId, @RequestHeader("Accesstoken") String accessToken) {
+        return ResponseUtil.SUCCESS("좋아요 성공", likesService.insert(accessToken, beerId));
     }
 
     @Operation(summary = "좋아요 취소", description = "좋아요 취소 API")
     @DeleteMapping("/{likesId}")
-    public ResponseDto delete(@Parameter(description = "좋아요 인덱스 번호") @PathVariable Long likesId, HttpServletRequest httpServletRequest) {
-        usersService.getUserBySessionId(httpServletRequest);
+    public ResponseDto delete(@Parameter(description = "좋아요 인덱스 번호") @PathVariable Long likesId, @RequestHeader("Accesstoken") String accessToken) {
+        usersService.getUserByToken(accessToken);
         likesService.delete(likesId);
         return ResponseUtil.SUCCESS("삭제 완료", likesId);
     }

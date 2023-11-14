@@ -102,8 +102,14 @@ public class UsersService {
         sessionManager.expire(request);
     }
 
-    public Users getUserBySessionId(HttpServletRequest request) {
-        Users users = (Users) sessionManager.getSession(request);
+    public Users getUserByToken(String token) {
+
+        Authentication authentication = jwtTokenProvider.getAuthentication(token);
+        String loginId = authentication.getName();
+
+        Users users = usersRepository.findByLoginId(loginId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다. id=" + loginId));
+
         if(users == null) {
             throw new RuntimeException("로그인 해주세요.");
         }
