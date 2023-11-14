@@ -39,11 +39,6 @@ public class UsersService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
 
-
-
-    @Autowired
-    private final SessionManager sessionManager;
-
     public Long save(UsersSaveRequestDto usersSaveRequestDto) {
         Users users = usersSaveRequestDto.toEntity();
         Long usersId = usersRepository.save(users).getId();

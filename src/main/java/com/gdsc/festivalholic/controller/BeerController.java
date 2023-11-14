@@ -3,6 +3,7 @@ package com.gdsc.festivalholic.controller;
 
 import com.gdsc.festivalholic.config.response.ResponseDto;
 import com.gdsc.festivalholic.config.response.ResponseUtil;
+import com.gdsc.festivalholic.controller.dto.beer.BeerLikeStatusResponse;
 import com.gdsc.festivalholic.controller.dto.beer.BeerListResponseDto;
 import com.gdsc.festivalholic.controller.dto.beer.BeerResponseDto;
 import com.gdsc.festivalholic.controller.dto.beer.BeerSaveRequestDto;
@@ -31,8 +32,6 @@ public class BeerController {
 
 
     private final BeerService beerService;
-    private final HashTagService hashtagService;
-
 
     //수제 맥주 생성 API
     @PostMapping("/create")
@@ -51,7 +50,6 @@ public class BeerController {
         BeerResponseDto beerById = beerService.findBeerById(beerId);
 
         return ResponseUtil.SUCCESS("맥주 정보 조회를 완료하였습니다.", beerById);
-
     }
 
     @GetMapping("")
@@ -60,6 +58,14 @@ public class BeerController {
         List<BeerListResponseDto> allBeer = beerService.findAllBeer();
 
         return ResponseUtil.SUCCESS("모든 맥주 정보 조회를 완료하였습니다.", allBeer);
+    }
+
+    @GetMapping("/{id}/likeStatus")
+    public ResponseDto<BeerLikeStatusResponse> findBeerLikeStatusByToken(@PathVariable("id") Long beerId, @RequestHeader("Accesstoken") String accessToken){
+
+        BeerLikeStatusResponse beerById = beerService.findBeerLikeStatusByToken(accessToken, beerId);
+
+        return ResponseUtil.SUCCESS("유저의 맥주 좋아요 상태 조회를 완료하였습니다.", beerById);
     }
 
     @GetMapping("/likes")

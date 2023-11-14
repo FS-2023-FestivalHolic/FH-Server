@@ -2,6 +2,7 @@ package com.gdsc.festivalholic.service;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.gdsc.festivalholic.controller.dto.beer.BeerLikeStatusResponse;
 import com.gdsc.festivalholic.controller.dto.beer.BeerListResponseDto;
 import com.gdsc.festivalholic.controller.dto.beer.BeerResponseDto;
 import com.gdsc.festivalholic.controller.dto.beer.BeerSaveRequestDto;
@@ -17,9 +18,15 @@ import com.gdsc.festivalholic.domain.beerImage.BeerImage;
 import com.gdsc.festivalholic.domain.beerImage.BeerImageRepository;
 import com.gdsc.festivalholic.domain.hashTag.HashTag;
 import com.gdsc.festivalholic.domain.hashTag.HashTagRepository;
+import com.gdsc.festivalholic.domain.likes.Likes;
+import com.gdsc.festivalholic.domain.likes.LikesRepository;
+import com.gdsc.festivalholic.domain.users.Users;
+import com.gdsc.festivalholic.domain.users.UsersRepository;
+import com.gdsc.festivalholic.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +34,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -41,6 +49,9 @@ public class BeerService {
     private final BeerHashTagRepository beerHashTagRepository;
     private final BeerImageRepository beerImageRepository;
     private final BeerContentRepository beerContentRepository;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final UsersRepository usersRepository;
+    private final LikesRepository likesRepository;
 
     private final AmazonS3Client amazonS3Client;
 
@@ -69,6 +80,26 @@ public class BeerService {
         List<BeerContentDto> beerContentDtoList = getBeerContentDtoList(beer);
         List<String> hashTagList = getHashTagNamesFromBeer(beer);
         return buildBeerResponseDto(beer, url, beerContentDtoList, hashTagList);
+    }
+
+    public BeerLikeStatusResponse findBeerLikeStatusByToken(String token, Long beerId){
+        Authentication authentication = jwtTokenProvider.getAuthentication(token);
+        String loginId = authentication.getName();
+
+        Users users = usersRepository.findByLoginId(loginId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다. id=" + loginId));
+
+        Beer beer = beerRepository.findById(beerId)
+                        .orElseThrow(() -> new IllegalArgumentException(("해당 맥주가 없습니다. id=") + beerId));
+
+        Optional<Likes> byUsersAndBeer = likesRepository.findByUsersAndBeer(users, beer);
+
+        BeerLikeStatusResponse beerLikeStatusResponse = new BeerLikeStatusResponse();
+        if (byUsersAndBeer.isPresent()){
+            beerLikeStatusResponse.like();
+        }
+
+        return beerLikeStatusResponse;
     }
 
     public List<BeerListResponseDto> findAllBeerByOrderByLikesCnt(){
