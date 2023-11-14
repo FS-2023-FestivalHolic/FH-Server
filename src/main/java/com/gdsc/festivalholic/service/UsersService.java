@@ -51,9 +51,13 @@ public class UsersService {
     }
 
     @Transactional(readOnly = true)
-    public UsersResponseDto findById(Long userId) {
-        Users users = usersRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다. id=" + userId));
+    public UsersResponseDto findById(String token) {
+
+        Authentication authentication = jwtTokenProvider.getAuthentication(token);
+        String loginId = authentication.getName();
+
+        Users users = usersRepository.findByLoginId(loginId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다. id=" + loginId));
 
         ArrayList<Likes> likesList = likesRepository.findByUsers(users);
         ArrayList<BeerLikesResponseDto> beerList = new ArrayList<>();

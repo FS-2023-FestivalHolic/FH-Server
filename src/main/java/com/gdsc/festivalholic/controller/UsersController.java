@@ -53,13 +53,11 @@ public class UsersController {
     }
 
     //내 정보 조회
-//    @GetMapping("")
-//    public ResponseDto<UsersResponseDto> findById(HttpServletRequest httpServletRequest, @RequestHeader("sessionId") String headers) {
-//        System.out.println("====================================");
-//        System.out.println("Header : " + headers);
-//        Users users = userService.getUserByStringSessionId(headers,httpServletRequest);
-//        return ResponseUtil.SUCCESS("내 정보 조회에 성공하였습니다." + headers, userService.findById(users.getId()));
-//    }
+    @GetMapping("")
+    public ResponseDto<UsersResponseDto> findById(@RequestHeader("Accesstoken") String accessToken) {
+
+        return ResponseUtil.SUCCESS("내 정보 조회에 성공하였습니다.", userService.findById(accessToken));
+    }
 
     @PostMapping("/login")
     public ResponseDto<TokenInfo> login(@RequestBody LoginRequest loginRequest) {
