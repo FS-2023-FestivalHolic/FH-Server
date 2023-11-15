@@ -56,8 +56,7 @@
  👀GitHub: 추가
 
  ## 📝 License
-
-
+This project is [MIT](https://github.com/FS-2023-FestivalHolic/FH-Server/blob/main/LICENSE) licensed.
 
 
 
