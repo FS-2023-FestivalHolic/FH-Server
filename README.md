@@ -53,7 +53,7 @@
  👀GitHub: [@rhrudska987](https://github.com/rhrudska987) <br>
 
 **창하** <br>
- 👀GitHub: 추가
+ 👀GitHub: [@changha](https://github.com/Changha-dev)
 
  ## 📝 License
 This project is [MIT](https://github.com/FS-2023-FestivalHolic/FH-Server/blob/main/LICENSE) licensed.
