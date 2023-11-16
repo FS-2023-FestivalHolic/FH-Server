@@ -43,11 +43,10 @@ public class LikesController {
     }
 
     @Operation(summary = "좋아요 취소", description = "좋아요 취소 API")
-    @DeleteMapping("/{likesId}")
-    public ResponseDto delete(@Parameter(description = "좋아요 인덱스 번호") @PathVariable Long likesId, @RequestHeader("Accesstoken") String accessToken) {
-        usersService.getUserByToken(accessToken);
-        likesService.delete(likesId);
-        return ResponseUtil.SUCCESS("삭제 완료", likesId);
+    @DeleteMapping("/beers/{beerId}")
+    public ResponseDto delete(@Parameter(description = "맥주 인덱스 번호") @PathVariable Long beerId, @RequestHeader("Accesstoken") String accessToken) {
+        likesService.delete(beerId, accessToken);
+        return ResponseUtil.SUCCESS("삭제 완료", beerId);
     }
     
 }
