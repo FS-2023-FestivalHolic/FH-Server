@@ -50,9 +50,16 @@ public class LikesService {
         return likesId;
     }
 
-    public void delete(Long likesId) {
-        Likes likes = likesRepository.findById(likesId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 좋아요가 없습니다. id=" + likesId));
+    public void delete(Long beerId, String accessToken) {
+        Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
+        String loginId = authentication.getName();
+
+        Users users = usersRepository.findByLoginId(loginId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다. id=" + loginId));
+        Beer beer = beerRepository.findById(beerId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 맥주가 없습니다. id=" + beerId));
+        Likes likes = likesRepository.findByUsersAndBeer(users, beer)
+                .orElseThrow(() -> new IllegalArgumentException("해당 좋아요가 없습니다."));
 
         beerService.minusLikesCnt(likes.getBeer().getId());
         likesRepository.delete(likes);
