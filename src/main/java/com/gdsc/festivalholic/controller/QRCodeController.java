@@ -26,7 +26,7 @@ public class QRCodeController {
     public ResponseEntity<byte[]> generateQRCode() {
         final int width = 200;
         final int height = 200;
-        final String url = "http://3.34.177.220:8083/hello";
+        final String url = "http://3.134.91.122/beer";
 
         try {
             BitMatrix encodedQRCode = createQRCode(url, BarcodeFormat.QR_CODE, width, height);
