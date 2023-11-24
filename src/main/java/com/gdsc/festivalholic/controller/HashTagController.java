@@ -27,11 +27,11 @@ public class HashTagController {
         return ResponseUtil.SUCCESS("해쉬태그 생성 완료하였습니다.", hashTagId);
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseDto<List<HashTagResponseDto>> findAllHashTag(){
 
         List<HashTagResponseDto> allHashTag = hashTagService.findAllHashTag();
 
-        return ResponseUtil.SUCCESS("모든 해쉬태그 생성을 완료하였습니다.", allHashTag);
+        return ResponseUtil.SUCCESS("모든 해쉬태그 조회를 완료하였습니다.", allHashTag);
     }
 }
