@@ -2,6 +2,7 @@ package com.gdsc.festivalholic.domain.beer;
 
 import com.gdsc.festivalholic.domain.beerContent.BeerContent;
 import com.gdsc.festivalholic.domain.beerHashTag.BeerHashTag;
+import com.gdsc.festivalholic.domain.beerImage.BeerImage;
 import com.gdsc.festivalholic.domain.likes.Likes;
 
 import jakarta.persistence.Column;
@@ -37,6 +38,9 @@ public class Beer {
 
     @OneToMany(mappedBy = "beer")
     private List<BeerContent> beerContentList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "beer")
+    private List<BeerImage> beerImage;
 
     @ColumnDefault("0")
     @Column(nullable = false)

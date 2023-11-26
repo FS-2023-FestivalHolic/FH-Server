@@ -86,7 +86,8 @@ public class BeerService {
 
     public BeerResponseDto findBeerById(Long beerId){
         Beer beer = findBeerEntityById(beerId);
-        URL url = getImageUrl(beerId);
+        URL url = getImageUrl(beer.getBeerImage().get(0).getUrl());
+        System.out.println();
         List<BeerContentDto> beerContentDtoList = getBeerContentDtoList(beer);
         List<String> hashTagList = getHashTagNamesFromBeer(beer);
         return buildBeerResponseDto(beer, url, beerContentDtoList, hashTagList);
@@ -142,7 +143,7 @@ public class BeerService {
                     .beerName(beer.getBeerName())
                     .hashTagList(getHashTagNamesFromBeer(beer))
                     .likesCnt(beer.getLikesCnt())
-                    .imageUrl(getImageUrl(beer.getId()).toString())
+                    .imageUrl(getImageUrl(beer.getBeerImage().get(0).getUrl()).toString())
                     .build();
 
             beerListResponseDtoList.add(beerListResponseDto);
@@ -184,8 +185,8 @@ public class BeerService {
                 .build();
     }
 
-    public URL getImageUrl(Long beerId) {
-        return amazonS3Client.getUrl("fh-image-bucket", Long.toString(beerId) + "_image.png");
+    public URL getImageUrl(String fileName) {
+        return amazonS3Client.getUrl("fh-image-bucket", fileName);
     }
 
     private List<String> addHashTagsToBeer(BeerSaveRequestDto beerSaveRequestDto, Beer beer) {
@@ -230,7 +231,7 @@ public class BeerService {
             amazonS3Client.putObject(bucket, imageFileName, file.getInputStream(), metadata);
 
             BeerImage image = BeerImage.builder()
-                    .url("/beerImages/" + imageFileName)
+                    .url(imageFileName)
                     .beer(beer)
                     .build();
 
