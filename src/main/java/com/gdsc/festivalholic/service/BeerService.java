@@ -74,6 +74,18 @@ public class BeerService {
         return beerId;
     }
 
+    public Long update(Long id, BeerImageUploadDto beerImageUploadDto){
+        MultipartFile file = beerImageUploadDto.getFile();
+        // id로 beer찾기
+        Beer beer = beerRepository.findById(id).orElseThrow(() -> new RuntimeException("해당 맥주가 존재하지 않습니다."));
+
+        if (file != null && !file.isEmpty()){
+            uploadImage(file, beer, id);
+        }
+
+        return id;
+    }
+
     public BeerResponseDto findBeerById(Long beerId){
         Beer beer = findBeerEntityById(beerId);
         URL url = getImageUrl(beerId);

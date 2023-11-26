@@ -43,6 +43,14 @@ public class BeerController {
         return ResponseUtil.SUCCESS("맥주 정보 생성을 완료하였습니다.", beerId);
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseDto<Long> update(@RequestPart(value = "beerImageUploadDto") MultipartFile multipartFile, @PathVariable("id") Long id){
+        BeerImageUploadDto beerImageUploadDto = new BeerImageUploadDto(multipartFile);
+        Long beerId = beerService.update(id, beerImageUploadDto);
+
+        return ResponseUtil.SUCCESS("맥주 이미지를 업데이트 하였습니다.", beerId);
+    }
+
     //특정 수제 맥주 조회 API
     @GetMapping("/{id}")
     public ResponseDto<BeerResponseDto> findBeerById(@PathVariable("id") Long beerId){
@@ -88,5 +96,4 @@ public class BeerController {
         List<BeerListResponseDto> beers = beerService.findBeersByHashTags(hashTagIds);
         return ResponseUtil.SUCCESS("입력받은 해쉬태그 기준으로 맥주 정보 조회를 완료하였습니다.", beers);
     }
-
 }
