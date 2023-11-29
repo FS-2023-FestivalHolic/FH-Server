@@ -2,14 +2,16 @@
 	<img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section=header&text=Festival-Holic!&fontSize=90" />	
 <img width="200" height="150" alt="image" src="https://github.com/FS-2023-FestivalHolic/FH-Server/assets/59828706/61e1242a-ccf7-495d-8dca-7c5c6f7f62d8">
 <h1>노원구 수제 맥주 축제 전용 플랫폼</h1>
+<img width="230" height="240" alt="image" src="https://github.com/FS-2023-FestivalHolic/FH-Server/assets/59828706/b15167a4-6f50-4ccd-b8da-382434eefe3b">
 <img width="115" height="240" alt="image" src="https://github.com/FS-2023-FestivalHolic/FH-Server/assets/59828706/78d6998b-c23f-4187-aeee-6c4d4b449b4f">
-<img width="230" height="240 alt="image" src="https://github.com/FS-2023-FestivalHolic/FH-Server/assets/59828706/a18af83d-ea1a-4b44-bc20-ad7b5d830492">
-<img width="115" height="240 alt="image" src="https://github.com/FS-2023-FestivalHolic/FH-Server/assets/59828706/b5f72e7b-53d1-4d64-91d5-97637f31abb1">
-<img width="115" height="240" alt="image" src="https://github.com/FS-2023-FestivalHolic/FH-Server/assets/59828706/00e73e9c-ac98-46a7-b765-13573a262cf6">
+<img width="230" height="240" alt="image" src="https://github.com/FS-2023-FestivalHolic/FH-Server/assets/59828706/ade9e2ea-2cee-44f6-9e9f-1a2705d6d454">
+<!-- <img width="230" height="240" alt="image" src="https://github.com/FS-2023-FestivalHolic/FH-Server/assets/59828706/211492d8-f4aa-4387-8f11-c43fadd2b4b6"> -->
+<img width="230" height="240" alt="image" src="https://github.com/FS-2023-FestivalHolic/FH-Server/assets/59828706/121cd892-08b8-4323-bde9-f43de42e83ec">
+
 </div>
 
 ## 🎬구동 영상
-영상 추가<br>
+https://github.com/FS-2023-FestivalHolic/FH-Server/assets/59828706/00ccf1a4-fae6-44d0-a45d-62c9f3a1b90c
 
 <div>
 	<h2>📚 Tech Stack 📚</h2>
