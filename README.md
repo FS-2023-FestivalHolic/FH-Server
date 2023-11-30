@@ -1,6 +1,6 @@
 <div align=center>
 	<img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section=header&text=Festival-Holic!&fontSize=90" />	
-<img width="200" height="150" alt="image" src="https://github.com/FS-2023-FestivalHolic/FH-Server/assets/59828706/61e1242a-ccf7-495d-8dca-7c5c6f7f62d8">
+<img width="459" alt="image" src="https://github.com/FS-2023-FestivalHolic/FH-Server/assets/59828706/5243e073-82ec-4c57-9fe2-6c48497a1396">
 <h1>노원구 수제 맥주 축제 전용 플랫폼</h1>
 <img width="230" height="240" alt="image" src="https://github.com/FS-2023-FestivalHolic/FH-Server/assets/59828706/b15167a4-6f50-4ccd-b8da-382434eefe3b">
 <img width="115" height="240" alt="image" src="https://github.com/FS-2023-FestivalHolic/FH-Server/assets/59828706/78d6998b-c23f-4187-aeee-6c4d4b449b4f">
