@@ -49,6 +49,9 @@ https://github.com/FS-2023-FestivalHolic/FH-Server/assets/59828706/00ccf1a4-fae6
 전체 ERD <br><br>
 👉🏻[ERDCloud로 이동](https://www.erdcloud.com/d/yFSz8aFrb9kPM7Jqn) <br>
 
+## 🏆Prize
+<img width="500" height="500" alt="image" src="https://github.com/FS-2023-FestivalHolic/FH-Server/assets/59828706/8498a59a-df31-4979-8cad-5eeee47ec1dd">
+
 ## 🧑‍💻Author
 
  **Kyko** <br>
